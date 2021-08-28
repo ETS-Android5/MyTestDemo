@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/add_list_fm"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content"
+            tools:ignore="RtlHardcoded">
+            <LinearLayout
+                android:layout_marginRight="20dp"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/release_btn"
+                    android:background="@drawable/goto123"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="15sp"
+                    android:text="发布"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="35dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/title_tv"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:hint="标题(必填)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="20sp"
+                android:text="联系电话:"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/phone_number"
+                android:inputType="number"
+                android:hint="联系方式(必填)"
+                android:maxLength="13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:text="请在下方输入详细内容"
+            tools:ignore="HardcodedText" />
+            <EditText
+                android:id="@+id/message_data"
+                android:padding="10dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="请输入失/招领物品详细信息描述(必填)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="HardcodedText"
+                android:inputType="text" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
