@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mytestdemo">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 获取GSM（2g）、WCDMA（联通3g）等网络状态的信息 -->
@@ -8,13 +9,15 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 获取sd卡写的权限，用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        android:icon="@drawable/lostandfound"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/lostandfound"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestDemo">
         <activity android:name=".LostDescribe"
@@ -41,6 +44,15 @@
         </activity>
 
         <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.mytestdemo.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider" />
+        </provider>
+        <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.BmobContentProvider"
             android:exported="true">
@@ -50,7 +62,8 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.fragment.BmobContentProvider"
-            android:exported="true">
+            android:exported="true"
+            tools:ignore="ExportedContentProvider">
 
         </provider>
 

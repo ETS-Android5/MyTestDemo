@@ -1,5 +1,6 @@
 package com.example.mytestdemo.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,34 +23,50 @@ import com.example.mytestdemo.lost.Lost;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobQueryResult;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SQLQueryListener;
+import cn.bmob.v3.listener.QueryListener;
 
 
 public class FragmentList extends Fragment {
     View view;
     ListView listView;
     List<Lost> losts;
+    TextView textViewtop;
+
+    @SuppressLint("SetTextI18n")
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragmentlist,container,false);
-        listView=view.findViewById(R.id.list_view);
+        view = inflater.inflate(R.layout.fragmentlist, container, false);
+        textViewtop = view.findViewById(R.id.text1);
+//        textViewtop.setMovementMethod(new ScrollingMovementMethod());
+
+        BmobQuery<Messages> bmobQuery = new BmobQuery<Messages>();
+        bmobQuery.getObject("Hnyl4449", new QueryListener<Messages>() {
+            @Override
+            public void done(Messages object, BmobException e) {
+                if (e == null) {
+                    textViewtop.setText(object.getNotice());
+                } else {
+                    Toast.makeText(getActivity(), "初始化公告失败", Toast.LENGTH_SHORT).show();
+                    textViewtop.setText("一条评论只能属于某一篇帖子，一篇帖子可以有很多用户对其进行评论，那么帖子和评论之间的关系就是一对多关系，推荐使用pointer类型来表示。");
+                }
+            }
+        });
+        listView = view.findViewById(R.id.list_view);
 
         BmobQuery<Lost> query = new BmobQuery<>();
         query.order("-createdAt");
 
-        query.findObjects( new FindListener<Lost>() {
+        query.findObjects(new FindListener<Lost>() {
             @Override
             public void done(List<Lost> list, BmobException e) {
-                if (e==null){
-                    losts=list;
-                    listView.setAdapter(new AddAdapter(getActivity(),losts));
-                }
-                else {
+                if (e == null) {
+                    losts = list;
+                    listView.setAdapter(new AddAdapter(getActivity(), losts));
+                } else {
                     Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -61,12 +79,12 @@ public class FragmentList extends Fragment {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Lost lost=losts.get(position);
-                        Intent intent=new Intent(getActivity(), LostDescribe.class);
-                        intent.putExtra("title",lost.getTitle());
-                        intent.putExtra("describe",lost.getDescribe());
-                        intent.putExtra("date",lost.getCreatedAt());
-                        intent.putExtra("phone",lost.getPhone());
+                        Lost lost = losts.get(position);
+                        Intent intent = new Intent(getActivity(), LostDescribe.class);
+                        intent.putExtra("title", lost.getTitle());
+                        intent.putExtra("describe", lost.getDescribe());
+                        intent.putExtra("date", lost.getCreatedAt());
+                        intent.putExtra("phone", lost.getPhone());
                         startActivity(intent);
                     }
                 });
