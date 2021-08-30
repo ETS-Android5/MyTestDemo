@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -47,6 +48,12 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Bmob.initialize(Login.this, "08f5717e435ccb57bd2b266c62b30563");
         setTitle("登录");
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(Login.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                //没有权限则申请权限
+                ActivityCompat.requestPermissions(Login.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            }
+        }
         init();
         new Thread(new Runnable() {
             @Override
