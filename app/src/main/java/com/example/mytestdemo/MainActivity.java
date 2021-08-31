@@ -25,7 +25,6 @@ import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends AppCompatActivity {
     EditText phonenumber;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 //                    date=time+8*60*60;//服务器时间不稳定 有时差八小时可能是时区问题
-                    String times = formatter.format(new Date(date * 1000L));
+                    String times = formatter.format(new Date(time * 1000L));
                     Log.i("bmob","当前服务器时间为:" + times+"time="+time);
                     servertime.setText("当前服务器时间为:"+times);
                 }else{

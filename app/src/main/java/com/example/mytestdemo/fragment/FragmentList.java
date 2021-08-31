@@ -80,6 +80,7 @@ public class FragmentList extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Lost lost = losts.get(position);
+
                         Intent intent = new Intent(getActivity(), LostDescribe.class);
                         intent.putExtra("title", lost.getTitle());
                         intent.putExtra("describe", lost.getDescribe());
