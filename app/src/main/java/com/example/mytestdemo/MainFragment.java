@@ -194,7 +194,7 @@ public class MainFragment extends AppCompatActivity {
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainFragment.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainFragment.this, "取消更新", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 })
