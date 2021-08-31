@@ -229,6 +229,7 @@ public class MainFragment extends AppCompatActivity {
         });
 
        mDownloadDialog = builder.create();
+        mDownloadDialog.setCancelable(false);
         mDownloadDialog.show();
 
         // 下载文件
