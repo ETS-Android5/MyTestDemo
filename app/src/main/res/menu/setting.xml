@@ -27,6 +27,12 @@
                 android:orderInCategory="100"
                 android:title="重新登录"
                 app:showAsAction="never"/>
+            <item
+                android:id="@+id/update_msg"
+                android:orderInCategory="100"
+                android:title="更新公告"
+                app:showAsAction="never"/>
+
         </menu>
 
     </item>

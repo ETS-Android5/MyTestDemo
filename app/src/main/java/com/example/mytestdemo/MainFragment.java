@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mytestdemo.dialog.UpdateTest;
 import com.example.mytestdemo.fragment.AddListData;
 import com.example.mytestdemo.fragment.FragmentList;
 import com.example.mytestdemo.getapk.APKVersionCodeUtils;
@@ -133,6 +134,11 @@ public class MainFragment extends AppCompatActivity {
                 Intent intent=new Intent(MainFragment.this,MainActivity.class);
                 intent.putExtra("username",name);
                 startActivity(intent);
+                break;
+            case R.id.update_msg:
+                UpdateTest updateTest=new UpdateTest(MainFragment.this);
+                updateTest.create();
+                updateTest.show();
                 break;
             case R.id.logon:
                 Handler handler=new Handler();
