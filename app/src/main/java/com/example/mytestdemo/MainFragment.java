@@ -141,7 +141,7 @@ public class MainFragment extends AppCompatActivity {
                 updateTest.show();
                 break;
             case R.id.update_dialog:
-                check();
+                querySingleData();
                 break;
             case R.id.logon:
                 Handler handler=new Handler();
