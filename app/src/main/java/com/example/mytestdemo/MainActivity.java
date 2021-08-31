@@ -1,11 +1,13 @@
 package com.example.mytestdemo;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -52,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
         setTitle("验证码测试");
         Bmob.initialize(MainActivity.this, "08f5717e435ccb57bd2b266c62b30563");
         Bmob.getServerTime(new QueryListener<Long>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @SuppressLint("SetTextI18n")
             @Override
             public void done(Long time,BmobException e) {
                 if(e==null){
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    date=time+8*60*60;
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//                    date=time+8*60*60;//服务器时间不稳定 有时差八小时可能是时区问题
                     String times = formatter.format(new Date(date * 1000L));
                     Log.i("bmob","当前服务器时间为:" + times+"time="+time);
                     servertime.setText("当前服务器时间为:"+times);
