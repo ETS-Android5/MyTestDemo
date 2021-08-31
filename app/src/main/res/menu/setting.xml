@@ -32,6 +32,12 @@
                 android:orderInCategory="100"
                 android:title="更新公告"
                 app:showAsAction="never"/>
+            <item
+                android:id="@+id/update_dialog"
+                android:orderInCategory="100"
+                android:title="检查更新"
+                app:showAsAction="never"/>
+
 
         </menu>
 

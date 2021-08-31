@@ -140,6 +140,9 @@ public class MainFragment extends AppCompatActivity {
                 updateTest.create();
                 updateTest.show();
                 break;
+            case R.id.update_dialog:
+                check();
+                break;
             case R.id.logon:
                 Handler handler=new Handler();
                 handler.postDelayed(new Runnable() {
@@ -166,18 +169,20 @@ public class MainFragment extends AppCompatActivity {
                     System.out.println("APK更新地址：" + url);
                     System.out.println("版本号：" + code1);
                     System.out.println("更新内容" + text);
-                    check(code1);
+                    check();
                 } else {
                     Log.i("bmob图片", "失败：" + e.getMessage() + "," + e.getErrorCode());
                 }
             }
         });
     }
-    public void check(String code1) {
+    public void check() {
         code = APKVersionCodeUtils.getVersionCode(this);
         int i = Integer.parseInt(this.code1);
         if (i > code) {
             showDialog();
+        }else {
+            Toast.makeText(this, "软件已是最新版本！", Toast.LENGTH_SHORT).show();
         }
     }
     private void showDialog() {
