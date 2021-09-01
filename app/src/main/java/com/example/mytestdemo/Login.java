@@ -1,14 +1,10 @@
 package com.example.mytestdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,10 +12,16 @@ import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -37,34 +39,49 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class Login extends AppCompatActivity {
 
-    EditText username,password;
-    Button login,btnzc;
-    TextView address,wz;
+    EditText username, password;
+    Button login, btnzc;
+    TextView address, wz;
+    CheckBox savePwd;
+    SharedPreferences sp;
     private String in;
+    Boolean ischecked;
     private CoordinatorLayout coordinatorLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Bmob.initialize(Login.this, "08f5717e435ccb57bd2b266c62b30563");
         setTitle("登录");
-        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(Login.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(Login.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //没有权限则申请权限
-                ActivityCompat.requestPermissions(Login.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                ActivityCompat.requestPermissions(Login.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         }
-        init();
+        init();//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+        boolean checked = sp.getBoolean("checked", false);
+        if (checked){
+            savePwd.setChecked(true);
+            username.setText(sp.getString("username",""));
+            password.setText(sp.getString("password",""));
+            ischecked=true;
+        }else {
+            savePwd.setChecked(false);
+            ischecked=false;
+        }
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                URL url=null;
+                URL url = null;
                 try {
                     url = new URL("https://ip.cn/api/index?ip=&type=0");
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
-                InputStreamReader inputStreamReader= null;
+                InputStreamReader inputStreamReader = null;
                 try {
                     assert url != null;
                     inputStreamReader = new InputStreamReader(url.openStream());
@@ -72,24 +89,23 @@ public class Login extends AppCompatActivity {
                 } catch (InterruptedException | IOException e) {
                     e.printStackTrace();
                 }
-                BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 StringBuilder stringBuilder = new StringBuilder();
-                while (true){
+                while (true) {
 
                     try {
-                        if ((in=bufferedReader.readLine())!=null){
+                        if ((in = bufferedReader.readLine()) != null) {
                             // System.out.println(in);
                             stringBuilder.append(in);
-                        }
-                        else {
-                            in=bufferedReader.readLine();
+                        } else {
+                            in = bufferedReader.readLine();
                             bufferedReader.close();
 
                             inputStreamReader.close();
                             break;
                         }
                     } catch (IOException e) {
-                        Toast.makeText(Login.this, "子线程异常"+e.getMessage()+"应用强制退出！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "子线程异常" + e.getMessage() + "应用强制退出！", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }
@@ -102,29 +118,48 @@ public class Login extends AppCompatActivity {
 
             }
         }).start();
-       login.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               String unm = username.getText().toString();
-               String upwd = password.getText().toString();
-               if (unm.equals("")||upwd.equals("")){
-                   Toast.makeText(Login.this, "输入不能为空！", Toast.LENGTH_SHORT).show();
-               }
-               else {
-                   login(coordinatorLayout,unm,upwd);
-               }
-           }
-       });
 
-       btnzc.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(Login.this,LoginRegister.class));
-           }
-       });
+        savePwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ischecked=isChecked;
+            }
+        });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String unm = username.getText().toString();
+                String upwd = password.getText().toString();
+                if (unm.equals("") || upwd.equals("")) {
+                    Toast.makeText(Login.this, "输入不能为空！", Toast.LENGTH_SHORT).show();
+                } else {
+                    login(coordinatorLayout, unm, upwd);
+                    if (ischecked){
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor=sp.edit();
+                        editor.putBoolean("checked",ischecked);
+                        editor.putString("username",unm);
+                        editor.putString("password",upwd);
+                        editor.apply();
+                    }else {
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor=sp.edit();
+                        editor.putBoolean("checked",ischecked);
+                        editor.apply();
+                    }
+
+                }
+            }
+        });
+
+        btnzc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, LoginRegister.class));
+            }
+        });
 
     }
-    private void login(final View view,String unm,String upwd) {
+
+    private void login(final View view, String unm, String upwd) {
         final User user = new User();
         user.setUsername(unm);
         user.setPassword(upwd);
@@ -139,30 +174,34 @@ public class Login extends AppCompatActivity {
                     User user = BmobUser.getCurrentUser(User.class);
                     Snackbar.make(view, "登录成功：" + user.getUsername(), Snackbar.LENGTH_LONG).show();
 
-                    Handler handler=new Handler();
+                    Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent=new Intent(Login.this,MainFragment.class);
-                            intent.putExtra("username",user.getUsername());
+                            Intent intent = new Intent(Login.this, MainFragment.class);
+                            intent.putExtra("username", user.getUsername());
                             startActivity(intent);
 
                             finish();//*-*-*-*-*-*-*-*-*-*-*-
                         }
-                    },1000);
+                    }, 1000);
                 } else {
                     Snackbar.make(view, "登录失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             }
         });
     }
-    private void init(){
-        username=findViewById(R.id.username_edt);
-        password=findViewById(R.id.password_edt);
-        address=findViewById(R.id.address);
+
+    private void init() {
+        username = findViewById(R.id.username_edt);
+        password = findViewById(R.id.password_edt);
+        address = findViewById(R.id.address);
         wz = findViewById(R.id.WZ);
-        login=findViewById(R.id.button_login);
-        btnzc=findViewById(R.id.button_zc);
-        coordinatorLayout=findViewById(R.id.container_login);
+        login = findViewById(R.id.button_login);
+        btnzc = findViewById(R.id.button_zc);
+        savePwd = findViewById(R.id.save_pwd);
+        coordinatorLayout = findViewById(R.id.container_login);
+        sp = getSharedPreferences("savedata", MODE_PRIVATE);
     }
+
 }
