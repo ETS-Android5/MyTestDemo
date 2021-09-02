@@ -61,6 +61,8 @@ public class Login extends AppCompatActivity {
             }
         }
         init();//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+        View v=findViewById(R.id.snackbar_bar);
+        v.getBackground().setAlpha(148);
         boolean checked = sp.getBoolean("checked", false);
         if (checked){
             savePwd.setChecked(true);

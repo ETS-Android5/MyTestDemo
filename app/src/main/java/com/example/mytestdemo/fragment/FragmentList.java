@@ -60,7 +60,7 @@ public class FragmentList extends Fragment {
             }
         });
         listView = view.findViewById(R.id.list_view);
-
+        listView.getBackground().setAlpha(150);
         updateDate();
 
         listView.setOnItemClickListener(

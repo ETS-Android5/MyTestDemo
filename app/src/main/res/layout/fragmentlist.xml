@@ -9,15 +9,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"
+        android:background="@null"
         android:text="这是个TextView自动滚动效果示意案列,实现单行滚动效果"
         android:marqueeRepeatLimit="marquee_forever"
         android:ellipsize="marquee"
         android:scrollHorizontally="true"
         android:textSize="20sp"
-        android:textColor="#222"
+        android:textColor="#F44336"
         android:padding="5dp"/>
     <ListView
         android:id="@+id/list_view"
+        android:background="@drawable/qj315home"
         android:fadingEdgeLength="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

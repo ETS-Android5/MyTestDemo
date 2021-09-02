@@ -4,36 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/qj315"
     android:orientation="vertical"
     android:id="@+id/snackbar_bar"
     tools:context=".Login">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.appcompat.widget.Toolbar
-            android:background="#F44336"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="登录"
-                    android:textSize="26sp"
-                    android:textColor="#03A9F4"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:background="#F44336"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            >-->
+<!--            <LinearLayout-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="登录"-->
+<!--                    android:textSize="26sp"-->
+<!--                    android:textColor="#03A9F4"-->
+<!--                    android:textStyle="bold"/>-->
+<!--            </LinearLayout>-->
+<!--        </androidx.appcompat.widget.Toolbar>-->
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,14 +44,18 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="账号："
                 android:textSize="24sp"/>
             <EditText
+                android:textStyle="bold"
                 android:id="@+id/username_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="#00BCD4"
                 android:hint="请输入用户名"
                 android:inputType="text"/>
         </LinearLayout>
@@ -60,14 +65,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="密码："
                 android:textSize="24sp"/>
             <EditText
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:id="@+id/password_edt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="#03A9F4"
                 android:hint="请输入密码"
                 android:inputType="textPassword"/>
         </LinearLayout>
@@ -76,6 +86,7 @@
             android:layout_height="wrap_content">
             <CheckBox
                 android:id="@+id/save_pwd"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:text="记住密码"
                 android:layout_height="wrap_content"/>
@@ -93,14 +104,14 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="登录"
-            android:backgroundTint="#BC2B21"/>
+            android:backgroundTint="#2196F3"/>
         <Button
             android:id="@+id/button_zc"
             android:layout_marginLeft="100dp"
             android:layout_width="wrap_content"
             android:text="注册"
             android:textStyle="bold"
-            android:backgroundTint="#FFBC2B21"
+            android:backgroundTint="#03A9F4"
             android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
