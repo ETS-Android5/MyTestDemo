@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
                             if (e == null) {
 
                                 Toast.makeText(MainActivity.this, "发送验证码成功，短信ID：" + smsId, Toast.LENGTH_LONG).show();
+                                phonenumber.setText("");
                             } else {
 
                                 Toast.makeText(MainActivity.this, "发送验证码失败：" + e.getErrorCode() + "-" + e.getMessage(), Toast.LENGTH_LONG).show();
-                                phonenumber.setText("");
                             }
                         }
                     });

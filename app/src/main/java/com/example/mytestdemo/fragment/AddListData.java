@@ -44,9 +44,8 @@ public class AddListData extends Fragment {
         view = inflater.inflate(R.layout.addlist, container, false);
         initView();
         setHasOptionsMenu(true);
+        requireActivity().setTitle("添加信息");
         Bmob.initialize(getContext(), "08f5717e435ccb57bd2b266c62b30563");
-
-
 
         mReleaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +66,7 @@ public class AddListData extends Fragment {
                         if (e == null) {
                             FragmentManager fm = requireActivity().getSupportFragmentManager();
                             Fragment fragment = new FragmentList();
-                            fm.beginTransaction().replace(R.id.fragment_main, fragment).commit();
+                            fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
                             Toast.makeText(requireActivity(), "失物信息添加成功!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(requireActivity(), "添加失败:" + e.getMessage() + "|", Toast.LENGTH_SHORT).show();
@@ -87,7 +86,7 @@ public class AddListData extends Fragment {
         if ("返回".contentEquals(item.getTitle())) {
             FragmentManager fm = requireActivity().getSupportFragmentManager();
             Fragment fragment = new FragmentList();
-            fm.beginTransaction().replace(R.id.fragment_main, fragment).commit();
+            fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:background="@null"
-        android:text="这是个TextView自动滚动效果示意案列,实现单行滚动效果"
+        android:text=""
         android:marqueeRepeatLimit="marquee_forever"
         android:ellipsize="marquee"
         android:scrollHorizontally="true"

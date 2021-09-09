@@ -22,15 +22,16 @@ public class update extends BmobObject {
     public BmobFile getAPK() {
         return APK;
     }
+
     public void setAPK(BmobFile APK) {
         this.APK = APK;
     }
 
 
-
     public String getText() {
         return text;
     }
+
     public void setText(String text) {
         this.text = text;
     }
@@ -44,8 +45,7 @@ public class update extends BmobObject {
     }
 
 
-
-    public String getapkUrl(){
+    public String getapkUrl() {
         return APK.getFileUrl();
     }
 

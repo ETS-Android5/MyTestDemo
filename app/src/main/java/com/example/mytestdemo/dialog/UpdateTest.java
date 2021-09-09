@@ -54,21 +54,25 @@ public class UpdateTest extends Dialog {
             @Override
             public void onClick(View v) {
                 String s = msg.getText().toString();
-                Messages msgdata = new Messages();
-                msgdata.setNotice(s);
-                msgdata.update("Hnyl4449", new UpdateListener() {
+                if (s.length() <= 120) {
+                    Messages msgdata = new Messages();
+                    msgdata.setNotice(s);
+                    msgdata.update("Hnyl4449", new UpdateListener() {
 
-                    @Override
-                    public void done(BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(getContext(), "更新成功！"+msgdata.getUpdatedAt(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), "更新失败！"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                Toast.makeText(getContext(), "更新成功！" + msgdata.getUpdatedAt(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "更新失败！" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                });
-                dismiss();
+                    });
+                    dismiss();
+                }else {
+                    Toast.makeText(getContext(), "最多支持输入120个字符！", Toast.LENGTH_SHORT).show();
+                }
             }
 
         });

@@ -22,12 +22,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.mytestdemo.dialog.DialogUpdateV;
 import com.example.mytestdemo.dialog.UpdateTest;
 import com.example.mytestdemo.fragment.AddListData;
+import com.example.mytestdemo.fragment.AdminUserList;
 import com.example.mytestdemo.fragment.FragmentList;
+import com.example.mytestdemo.fragment.Personal_Center;
 import com.example.mytestdemo.getapk.APKVersionCodeUtils;
 import com.example.mytestdemo.update.update;
 
@@ -44,7 +49,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
 public class MainFragment extends AppCompatActivity {
-    FrameLayout fragment;
+    LinearLayout fragment;
     private long exitTime = 0;
     String name;
     private String code1,url,text;
@@ -55,6 +60,7 @@ public class MainFragment extends AppCompatActivity {
     private int code;
     private int mProgress;
     private final String mVersion_name="app-release.apk";
+    private RadioButton home,alllist,personal_center;
 
     private  Handler mUpdateProgressHandler = new Handler(){
         @SuppressLint("HandlerLeak")
@@ -77,13 +83,36 @@ public class MainFragment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
+
+        initView();
 //        Bmob.resetDomain("https://files.lumingyuan6868.xyz");
         Bmob.initialize(MainFragment.this, "08f5717e435ccb57bd2b266c62b30563");
-        initView();
         setView1();
       Intent userdata =getIntent();
          name = userdata.getStringExtra("username");
          querySingleData();
+
+        alllist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView3();
+                setTitle("管理员列表");
+            }
+        });
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView1();
+                setTitle("主页");
+            }
+        });
+        personal_center.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setView4();
+                setTitle("个人中心");
+            }
+        });
 
     }
 
@@ -119,7 +148,7 @@ public class MainFragment extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_settings:
-                Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.help:
                 Toast.makeText(this, "帮助", Toast.LENGTH_SHORT).show();
@@ -152,6 +181,11 @@ public class MainFragment extends AppCompatActivity {
                         finish();
                     }
                 },1000);
+                break;
+            case R.id.update_v:
+                DialogUpdateV updateV=new DialogUpdateV(MainFragment.this);
+                updateV.setCancelable(true);
+                updateV.show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -346,17 +380,27 @@ public class MainFragment extends AppCompatActivity {
 
 
     private void setView1() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main,new FragmentList()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new FragmentList()).commit();
 
     }
 
     private void setView2() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main,new AddListData()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AddListData()).commit();
+
+    } private void setView3() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AdminUserList()).commit();
+
+    }private void setView4() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new Personal_Center()).commit();
 
     }
 
     private void  initView(){
-         fragment = (FrameLayout) findViewById(R.id.fragment_list);
+         fragment = (LinearLayout) findViewById(R.id.fragment_list);
+         home=findViewById(R.id.home_rb);
+         alllist=findViewById(R.id.all_admin_list);
+         personal_center=findViewById(R.id.Personal_Center);
+
     }
 
 }

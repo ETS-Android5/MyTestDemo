@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add"
@@ -26,16 +27,26 @@
                 android:id="@+id/logon"
                 android:orderInCategory="100"
                 android:title="重新登录"
+                tools:ignore="HardcodedText"
                 app:showAsAction="never"/>
             <item
                 android:id="@+id/update_msg"
                 android:orderInCategory="100"
                 android:title="更新公告"
+                tools:ignore="HardcodedText"
                 app:showAsAction="never"/>
+            <item
+                android:id="@+id/update_v"
+                android:orderInCategory="100"
+                android:title="更新数据库版本号"
+                app:showAsAction="never"
+                tools:ignore="HardcodedText" />
+
             <item
                 android:id="@+id/update_dialog"
                 android:orderInCategory="100"
                 android:title="检查更新"
+                tools:ignore="HardcodedText"
                 app:showAsAction="never"/>
 
 

@@ -45,6 +45,7 @@ public class FragmentList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragmentlist, container, false);
         textViewtop = view.findViewById(R.id.text1);
+        requireActivity().setTitle("首页");
 //        textViewtop.setMovementMethod(new ScrollingMovementMethod());
 
         BmobQuery<Messages> bmobQuery = new BmobQuery<Messages>();
