@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.mytestdemo.fragment.FragmentList;
+
 public class LostDescribe extends AppCompatActivity {
 
     private TextView mTitleDescribe;
@@ -96,6 +98,7 @@ public class LostDescribe extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if ("返回".contentEquals(item.getTitle())){
             finish();
+            startActivity(new Intent(LostDescribe.this, MainFragment.class));
         }
         return super.onOptionsItemSelected(item);
     }

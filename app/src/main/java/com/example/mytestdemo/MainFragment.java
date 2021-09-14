@@ -62,7 +62,8 @@ public class MainFragment extends AppCompatActivity {
     private final String mVersion_name="app-release.apk";
     private RadioButton home,alllist,personal_center;
 
-    private  Handler mUpdateProgressHandler = new Handler(){
+    @SuppressLint("HandlerLeak")
+    private final Handler mUpdateProgressHandler = new Handler(){
         @SuppressLint("HandlerLeak")
         @Override
         public void handleMessage(Message msg) {
@@ -165,9 +166,13 @@ public class MainFragment extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.update_msg:
+                if (name.equals("QJ315")){
                 UpdateTest updateTest=new UpdateTest(MainFragment.this);
                 updateTest.create();
                 updateTest.show();
+                }else {
+                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.update_dialog:
                 querySingleData();
@@ -183,9 +188,13 @@ public class MainFragment extends AppCompatActivity {
                 },1000);
                 break;
             case R.id.update_v:
+                if (name.equals("QJ315")){
                 DialogUpdateV updateV=new DialogUpdateV(MainFragment.this);
                 updateV.setCancelable(true);
                 updateV.show();
+                }else {
+                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
