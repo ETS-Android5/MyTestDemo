@@ -44,7 +44,12 @@ public class LoginRegister extends AppCompatActivity {
                     Toast.makeText(LoginRegister.this, "输入不能为空！", Toast.LENGTH_SHORT).show();
                 }else if (!password1.equals(password2)){
                     Toast.makeText(LoginRegister.this, "两次输入的密码不一致！", Toast.LENGTH_SHORT).show();
-                }else {
+                }else if(username.length()<8||username.length()>16){
+                    Toast.makeText(LoginRegister.this, "用户名必须为大于8位小于16的字符！", Toast.LENGTH_SHORT).show();
+                }else if (password1.length()<9||password1.length()>18){
+                    Toast.makeText(LoginRegister.this, "密码为9-18为字符！", Toast.LENGTH_SHORT).show();
+                }
+                else {
                 signUp(coordinatorLayout,username,password1);
                 }
 
@@ -75,7 +80,8 @@ public class LoginRegister extends AppCompatActivity {
                             finish();
                         }
                     },1000);
-                } else {
+                }
+                else {
                     Snackbar.make(view, "尚未失败：" + e.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             }
