@@ -5,15 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.example.mytestdemo.userlist.UserList;
+import com.example.mytestdemo.User;
 
 import java.util.List;
 
 public class AddAdministrator extends BaseAdapter {
     Context context;
-    List<UserList> adduserlists;
+    List<User> adduserlists;
 
-    public AddAdministrator(Context context, List<UserList> adduserlists) {
+    public AddAdministrator(Context context, List<User> adduserlists) {
         this.context = context;
         this.adduserlists = adduserlists;
     }

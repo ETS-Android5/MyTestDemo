@@ -27,11 +27,11 @@ public class UserListView extends Dialog {
     public UserListView(@NonNull @NotNull Context context) {
         super(context);
         setContentView(R.layout.userlist);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTitle("用户列表");
         initView();
         new Thread(new Runnable() {
             @Override

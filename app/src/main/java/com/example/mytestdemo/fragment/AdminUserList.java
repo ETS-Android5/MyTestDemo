@@ -32,6 +32,7 @@ public class AdminUserList extends Fragment {
             public void onClick(View v) {
                 UserListView list=new UserListView(requireActivity());
                 list.setCancelable(true);
+                list.setTitle("用户列表");
                 list.show();
             }
         });
