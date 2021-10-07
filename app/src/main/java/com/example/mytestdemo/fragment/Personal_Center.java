@@ -18,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.update.update;
 
@@ -61,7 +64,9 @@ public class Personal_Center extends Fragment {
                             requireActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Glide.with(requireActivity()).load(s).into(mAvatar);
+                                    Glide.with(requireActivity()).load(s).apply(new RequestOptions()
+                                            .transforms(new CenterCrop(), new RoundedCorners(20)
+                                            )).into(mAvatar);
 
                                 }
                             });

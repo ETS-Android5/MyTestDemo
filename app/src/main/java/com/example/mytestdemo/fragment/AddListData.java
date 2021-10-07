@@ -2,6 +2,7 @@ package com.example.mytestdemo.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -25,6 +26,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -49,6 +54,7 @@ public class AddListData extends Fragment {
     private ImageButton mReleaseBtn;
     private ImageView imG;
     private Button addImg;
+    private ActivityResultLauncher<Intent> intentActivityResultLauncher;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -108,6 +114,22 @@ public class AddListData extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                Intent data = result.getData();
+                ClipData clipData = data.getClipData();
+                if (clipData==null||clipData.getItemCount()==0){
+                    Toast.makeText(getContext(), "未选择任何图片", Toast.LENGTH_SHORT).show();
+                }else{
+                    handImage(clipData.getItemAt(0).getUri());
+                }
+            }
+        });
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if ("返回".contentEquals(item.getTitle())) {
@@ -159,29 +181,33 @@ public class AddListData extends Fragment {
         //intent.setAction(Intent.ACTION_GET_CONTENT)  //实现相册多选 该方法获得的uri在转化为真实文件路径时Android 4.4以上版本会有问题
         intent.setAction(Intent.ACTION_PICK);
         intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);  //直接打开系统相册  不设置会有选择相册一步（例：系统相册、QQ浏览器相册）
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 2);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 2);
+        intentActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
     }
 
 
     //*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 2) {
-            //判断安卓版本
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                handImage(data);
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 2) {
+//            //判断安卓版本
+//            if (resultCode == Activity.RESULT_OK && data != null) {
+//                handImage(data);
+//            }
+//        }
+//    }
 
     //安卓版本大于4.4的处理方法
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void handImage(Intent data) {
+    private void handImage(Uri uri) {
         String path = null;
-        Uri uri = data.getData();
-        Log.e("TAG", "handImage: " + uri.getScheme());
+//        assert uri != null;
+//        Log.e("TAG", "handImage: " + uri.getScheme());
         //根据不同的uri进行不同的解析
+        assert uri != null;
         if ("content".equalsIgnoreCase(uri.getScheme())) {
             path = getImagePath(uri, null);
         } else if ("file".equalsIgnoreCase(uri.getScheme())) {
