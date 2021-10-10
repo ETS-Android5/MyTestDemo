@@ -40,8 +40,8 @@ import cn.bmob.v3.listener.SaveListener;
 public class Login extends AppCompatActivity {
 
     EditText username, password;
-    Button login, btnzc;
-    TextView address, wz;
+    Button login;
+    TextView address, wz,tvzc;
     CheckBox savePwd;
     SharedPreferences sp;
     private String in;
@@ -152,7 +152,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        btnzc.setOnClickListener(new View.OnClickListener() {
+        tvzc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Login.this, LoginRegister.class));
@@ -200,7 +200,7 @@ public class Login extends AppCompatActivity {
         address = findViewById(R.id.address);
         wz = findViewById(R.id.WZ);
         login = findViewById(R.id.button_login);
-        btnzc = findViewById(R.id.button_zc);
+        tvzc = findViewById(R.id.tv_zc);
         savePwd = findViewById(R.id.save_pwd);
         coordinatorLayout = findViewById(R.id.container_login);
         sp = getSharedPreferences("savedata", MODE_PRIVATE);

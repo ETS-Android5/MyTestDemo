@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -23,7 +24,7 @@ public class LoginRegister extends AppCompatActivity {
     private EditText mUserPassword;
     private EditText mUserPassword2;
     private Button mCreateYes;
-    private Button mCreateNo;
+    private TextView mCreateNo;
     private CoordinatorLayout mContainer;
 
     @Override

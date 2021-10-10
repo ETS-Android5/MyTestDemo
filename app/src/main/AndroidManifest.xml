@@ -20,13 +20,15 @@
         android:allowBackup="true"
         android:icon="@drawable/lostandfound128"
         android:label="@string/app_name"
-        tools:replace="android:theme"
         android:roundIcon="@drawable/lostandfound128"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestDemo"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute">
-        <activity android:name=".Qj315Page"
+        tools:ignore="UnusedAttribute"
+        tools:replace="android:theme">
+        <activity android:name=".UpdatePassword"></activity>
+        <activity
+            android:name=".Qj315Page"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,21 +40,15 @@
             android:name=".LostDescribe"
             android:exported="true"
             android:label="失物详细信息"
-            android:launchMode="singleInstance">
-
-        </activity>
+            android:launchMode="singleInstance"></activity>
         <activity
             android:name=".MainFragment"
             android:label="失物招领"
-            android:launchMode="singleInstance">
-
-        </activity>
+            android:launchMode="singleInstance"></activity>
         <activity
             android:name=".LoginRegister"
             android:launchMode="singleInstance" />
-        <activity android:name=".Login">
-
-        </activity>
+        <activity android:name=".Login"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -66,17 +62,17 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.BmobContentProvider"
-            android:exported="true"></provider>
+            android:exported="true" />
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.fragment.BmobContentProvider"
             android:exported="true"
-            tools:ignore="ExportedContentProvider"></provider>
+            tools:ignore="ExportedContentProvider" />
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
     </application>
 
 </manifest>

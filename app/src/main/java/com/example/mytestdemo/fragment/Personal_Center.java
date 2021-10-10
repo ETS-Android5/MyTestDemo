@@ -22,6 +22,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
+import com.example.mytestdemo.UpdatePassword;
 import com.example.mytestdemo.update.update;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Personal_Center extends Fragment {
     View view;
     private ImageView mAvatar;
     private TextView mUserNameTv;
-    private Button stopmusic;
+    private Button stopmusic,updateok;
     private  MediaPlayer mediaPlayer;
     private String s;
 
@@ -111,6 +112,13 @@ public class Personal_Center extends Fragment {
             }
         });
 
+        updateok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), UpdatePassword.class));
+            }
+        });
+
 
         return view;
 
@@ -121,5 +129,6 @@ public class Personal_Center extends Fragment {
         mUserNameTv = view.findViewById(R.id.user_name_tv);
         stopmusic=view.findViewById(R.id.stop_music);
         mediaPlayer =new MediaPlayer();
+        updateok=view.findViewById(R.id.update_password);
     }
 }

@@ -21,6 +21,7 @@
     <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -51,6 +52,11 @@
             android:id="@+id/stop_music"
             android:text="背景音乐"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/update_password"
+            android:layout_width="match_parent"
+            android:text="修改密码"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>
