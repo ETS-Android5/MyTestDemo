@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class UserListView extends Dialog {
                     public void done(List<User> object, BmobException e) {
                         if (e == null) {
                             usersList = object;
+                            
                             Toast.makeText(getContext(), "" + object.size(), Toast.LENGTH_SHORT).show();
 
                         } else {

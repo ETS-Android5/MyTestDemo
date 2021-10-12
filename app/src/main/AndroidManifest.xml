@@ -26,7 +26,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:theme">
-        <activity android:name=".UpdatePassword"></activity>
+        <activity android:name=".AddDataMainActivity"></activity>
+        <activity android:name=".UpdatePassword" />
         <activity
             android:name=".Qj315Page"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
@@ -40,15 +41,15 @@
             android:name=".LostDescribe"
             android:exported="true"
             android:label="失物详细信息"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".MainFragment"
             android:label="失物招领"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".LoginRegister"
             android:launchMode="singleInstance" />
-        <activity android:name=".Login"></activity>
+        <activity android:name=".Login" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

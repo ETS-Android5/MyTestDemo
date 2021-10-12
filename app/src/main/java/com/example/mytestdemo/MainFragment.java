@@ -45,6 +45,7 @@ import java.net.URL;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
@@ -156,8 +157,10 @@ public class MainFragment extends AppCompatActivity {
                 break;
             case R.id.add:
                 Toast.makeText(this, "添加信息", Toast.LENGTH_SHORT).show();
-                initView();
-                setView2();
+//                initView();
+//                setView2();
+                startActivity(new Intent(this,AddDataMainActivity.class));
+//                overridePendingTransition(R.anim.activity_open,0);
                 break;
             case R.id.sms_for_phone:
                 Toast.makeText(this, "验证码测试！", Toast.LENGTH_SHORT).show();
@@ -183,6 +186,7 @@ public class MainFragment extends AppCompatActivity {
                     @Override
                     public void run() {
                         startActivity(new Intent(MainFragment.this,Login.class));
+                        BmobUser.logOut();
                         finish();
                     }
                 },1000);

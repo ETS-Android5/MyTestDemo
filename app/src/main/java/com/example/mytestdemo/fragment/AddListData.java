@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -41,6 +42,8 @@ import androidx.fragment.app.FragmentManager;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.lost.Lost;
 
+import java.util.Objects;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
@@ -52,6 +55,7 @@ public class AddListData extends Fragment {
     private EditText mPhoneNumber;
     private EditText mMessageData;
     private ImageButton mReleaseBtn;
+    private RadioButton goback;
     private ImageView imG;
     private Button addImg;
     private ActivityResultLauncher<Intent> intentActivityResultLauncher;
@@ -79,6 +83,12 @@ public class AddListData extends Fragment {
             }
         });
 
+        goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().finish();
+            }
+        });
         mReleaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,9 +143,10 @@ public class AddListData extends Fragment {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if ("返回".contentEquals(item.getTitle())) {
-            FragmentManager fm = requireActivity().getSupportFragmentManager();
-            Fragment fragment = new FragmentList();
-            fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
+//            FragmentManager fm = requireActivity().getSupportFragmentManager();
+//            Fragment fragment = new FragmentList();
+//            fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
+            requireActivity().finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -155,6 +166,7 @@ public class AddListData extends Fragment {
         mMessageData = view.findViewById(R.id.message_data);
         mReleaseBtn = view.findViewById(R.id.release_btn);
         addImg = view.findViewById(R.id.add_img);
+        goback=view.findViewById(R.id.go_rb_back);
         imG = view.findViewById(R.id.Img);
         mMessageData.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//多行模式
         mMessageData.setSingleLine(false);//是否单行模式
