@@ -75,6 +75,7 @@ public class FragmentList extends Fragment {
                         intent.putExtra("describe", lost.getDescribe());
                         intent.putExtra("date", lost.getCreatedAt());
                         intent.putExtra("phone", lost.getPhone());
+                        intent.putExtra("photo",lost.getDate());//图片
                         startActivity(intent);
                     }
                 });

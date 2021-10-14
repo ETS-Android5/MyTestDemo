@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.fragment.FragmentList;
 
 public class LostDescribe extends AppCompatActivity {
@@ -28,6 +33,7 @@ public class LostDescribe extends AppCompatActivity {
     private TextView mMsgDataDescribe;
     private TextView mDateDescribe;
     private TextView mPhoneDescribe;
+    private ImageView ivphoto;
     private Button callupp, gotophone;
 
     @SuppressLint("SetTextI18n")
@@ -42,6 +48,10 @@ public class LostDescribe extends AppCompatActivity {
         String describe = intent.getStringExtra("describe");
         String date = intent.getStringExtra("date");
         String phone = intent.getStringExtra("phone");
+        String photo =intent.getStringExtra("photo");
+        Glide.with(LostDescribe.this).load(photo).apply(new RequestOptions()
+                .transforms(new CenterCrop(), new RoundedCorners(20)
+                )).into(ivphoto);
         mTitleDescribe.setText(title);
         mMsgDataDescribe.setText(describe);
         mMsgDataDescribe.setMovementMethod(ScrollingMovementMethod.getInstance());//文字滚动
@@ -86,6 +96,7 @@ public class LostDescribe extends AppCompatActivity {
         mPhoneDescribe = findViewById(R.id.phone_describe);
         callupp = findViewById(R.id.call_up);
         gotophone = findViewById(R.id.goto_phone);
+        ivphoto=findViewById(R.id.photo);
     }
 
     @Override

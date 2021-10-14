@@ -28,6 +28,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.mytestdemo.dialog.DialogUpdateV;
+import com.example.mytestdemo.dialog.SetProgressBar;
 import com.example.mytestdemo.dialog.UpdateTest;
 import com.example.mytestdemo.fragment.AddListData;
 import com.example.mytestdemo.fragment.AdminUserList;
@@ -79,7 +80,7 @@ public class MainFragment extends AppCompatActivity {
                     // 安装 APK 文件
                     installAPK();
             }
-        };
+        }
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class MainFragment extends AppCompatActivity {
         alllist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setmProgress();
                 setView3();
                 setTitle("管理员列表");
             }
@@ -104,6 +106,7 @@ public class MainFragment extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setmProgress();
                 setView1();
                 setTitle("主页");
             }
@@ -111,6 +114,7 @@ public class MainFragment extends AppCompatActivity {
         personal_center.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setmProgress();
                 setView4();
                 setTitle("个人中心");
             }
@@ -414,6 +418,25 @@ public class MainFragment extends AppCompatActivity {
          alllist=findViewById(R.id.all_admin_list);
          personal_center=findViewById(R.id.Personal_Center);
 
+    }
+    private void setmProgress(){
+//        AlertDialog.Builder builderpg=new AlertDialog.Builder(MainFragment.this);
+//        @SuppressLint("InflateParams") View viewpg=LayoutInflater.from(MainFragment.this).inflate(R.layout.dialog_rau_progressbar,null);
+//        builderpg.setView(viewpg);
+//        ProgressBar progressBar=viewpg.findViewById(R.id.id_progress_ra);
+//        builderpg.setCancelable(false);
+//        builderpg.create();
+//        builderpg.show();
+
+        SetProgressBar setProgressBar=new SetProgressBar(MainFragment.this);
+        setProgressBar.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setProgressBar.dismiss();
+            }
+        },1000);
     }
 
 }

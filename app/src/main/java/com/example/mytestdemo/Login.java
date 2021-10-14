@@ -41,11 +41,11 @@ public class Login extends AppCompatActivity {
 
     EditText username, password;
     Button login;
-    TextView address, wz,tvzc;
+    TextView address, wz, tvzc;
     CheckBox savePwd;
     SharedPreferences sp;
-    private String in;
     Boolean ischecked;
+    private String in;
     private CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -61,17 +61,17 @@ public class Login extends AppCompatActivity {
             }
         }
         init();//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-        View v=findViewById(R.id.snackbar_bar);
+        View v = findViewById(R.id.snackbar_bar);
         v.getBackground().setAlpha(148);
         boolean checked = sp.getBoolean("checked", false);
-        if (checked){
+        if (checked) {
             savePwd.setChecked(true);
-            username.setText(sp.getString("username",""));
-            password.setText(sp.getString("password",""));
-            ischecked=true;
-        }else {
+            username.setText(sp.getString("username", ""));
+            password.setText(sp.getString("password", ""));
+            ischecked = true;
+        } else {
             savePwd.setChecked(false);
-            ischecked=false;
+            ischecked = false;
         }
 
         new Thread(new Runnable() {
@@ -87,35 +87,41 @@ public class Login extends AppCompatActivity {
                 try {
                     assert url != null;
                     inputStreamReader = new InputStreamReader(url.openStream());
-                    Thread.sleep(3000);
+
+                    Thread.sleep(2000);
                 } catch (InterruptedException | IOException e) {
                     e.printStackTrace();
                 }
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                StringBuilder stringBuilder = new StringBuilder();
-                while (true) {
+                if (inputStreamReader != null) {
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    StringBuilder stringBuilder = new StringBuilder();
 
-                    try {
-                        if ((in = bufferedReader.readLine()) != null) {
-                            // System.out.println(in);
-                            stringBuilder.append(in);
-                        } else {
-                            in = bufferedReader.readLine();
-                            bufferedReader.close();
+                    while (true) {
 
-                            inputStreamReader.close();
-                            break;
+                        try {
+                            if ((in = bufferedReader.readLine()) != null) {
+                                // System.out.println(in);
+                                stringBuilder.append(in);
+                                Gson gson = new Gson();
+                                Bean bean = gson.fromJson(stringBuilder.toString(), Bean.class);
+                                address.setText(bean.getIp());
+                                wz.setText(bean.getAddress());
+                            } else {
+                                in = bufferedReader.readLine();
+                                bufferedReader.close();
+
+                                inputStreamReader.close();
+                                break;
+                            }
+                        } catch (IOException e) {
+                            Toast.makeText(Login.this, "子线程异常" + e.getMessage() + "应用强制退出！", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        Toast.makeText(Login.this, "子线程异常" + e.getMessage() + "应用强制退出！", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
                     }
+                    // System.out.println(stringBuilder.toString());
+                }else {
+                    Toast.makeText(Login.this, "IP网络异常", Toast.LENGTH_SHORT).show();
                 }
-                // System.out.println(stringBuilder.toString());
-                Gson gson = new Gson();
-                Bean bean = gson.fromJson(stringBuilder.toString(), Bean.class);
-                address.setText(bean.getIp());
-                wz.setText(bean.getAddress());
 
 
             }
@@ -124,7 +130,7 @@ public class Login extends AppCompatActivity {
         savePwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ischecked=isChecked;
+                ischecked = isChecked;
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -136,15 +142,15 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "输入不能为空！", Toast.LENGTH_SHORT).show();
                 } else {
                     login(coordinatorLayout, unm, upwd);
-                    if (ischecked){
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor=sp.edit();
-                        editor.putBoolean("checked",ischecked);
-                        editor.putString("username",unm);
-                        editor.putString("password",upwd);
+                    if (ischecked) {
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sp.edit();
+                        editor.putBoolean("checked", ischecked);
+                        editor.putString("username", unm);
+                        editor.putString("password", upwd);
                         editor.apply();
-                    }else {
-                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor=sp.edit();
-                        editor.putBoolean("checked",ischecked);
+                    } else {
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sp.edit();
+                        editor.putBoolean("checked", ischecked);
                         editor.apply();
                     }
 

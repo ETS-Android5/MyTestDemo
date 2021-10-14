@@ -42,11 +42,14 @@ import androidx.fragment.app.FragmentManager;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.lost.Lost;
 
+import java.io.File;
 import java.util.Objects;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 
 public class AddListData extends Fragment {
@@ -58,6 +61,7 @@ public class AddListData extends Fragment {
     private RadioButton goback;
     private ImageView imG;
     private Button addImg;
+    private String photourl;
     private ActivityResultLauncher<Intent> intentActivityResultLauncher;
 
     @Nullable
@@ -102,13 +106,17 @@ public class AddListData extends Fragment {
                     lost.setDescribe(describe);
                     lost.setPhone(phone);
                     lost.setTitle(title);
+                    if (!photourl.isEmpty()){
+                    lost.setDate(photourl);
+                    }
                     lost.save(new SaveListener<String>() {
                         @Override
                         public void done(String s, BmobException e) {
                             if (e == null) {
-                                FragmentManager fm = requireActivity().getSupportFragmentManager();
-                                Fragment fragment = new FragmentList();
-                                fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
+//                                FragmentManager fm = requireActivity().getSupportFragmentManager();
+//                                Fragment fragment = new FragmentList();
+//                                fm.beginTransaction().replace(R.id.fragment_list, fragment).commit();
+                                requireActivity().finish();
                                 Toast.makeText(requireActivity(), "失物信息添加成功!", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(requireActivity(), "添加失败:" + e.getMessage() + "|", Toast.LENGTH_SHORT).show();
@@ -256,6 +264,28 @@ public class AddListData extends Fragment {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
 //            imageView.setImageBitmap(bitmap);
             imG.setImageBitmap(bitmap);
+            BmobFile bmobFile = new BmobFile(new File(imagePath));
+            bmobFile.uploadblock(new UploadFileListener() {
+
+                @Override
+                public void done(BmobException e) {
+                    if(e==null){
+                        //bmobFile.getFileUrl()--返回的上传文件的完整地址
+//                        Toast.makeText(getContext(), "上传文件成功:"+bmobFile.getFileUrl(), Toast.LENGTH_SHORT).show();
+
+                        Log.i("Bmob", "done: "+bmobFile.getFileUrl());
+                        photourl=bmobFile.getFileUrl();
+                    }else{
+                        Toast.makeText(getContext(), "上传失败:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+                @Override
+                public void onProgress(Integer value) {
+                    // 返回的上传进度（百分比）
+                }
+            });
             Toast.makeText(requireContext(), "" + bitmap, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "fail to set image", Toast.LENGTH_SHORT).show();
