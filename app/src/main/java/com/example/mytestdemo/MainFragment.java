@@ -98,7 +98,6 @@ public class MainFragment extends AppCompatActivity {
         alllist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setmProgress();
                 setView3();
                 setTitle("管理员列表");
             }
@@ -106,7 +105,6 @@ public class MainFragment extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setmProgress();
                 setView1();
                 setTitle("主页");
             }
@@ -114,7 +112,6 @@ public class MainFragment extends AppCompatActivity {
         personal_center.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setmProgress();
                 setView4();
                 setTitle("个人中心");
             }
@@ -397,6 +394,7 @@ public class MainFragment extends AppCompatActivity {
 
 
     private void setView1() {
+        setmProgress();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new FragmentList()).commit();
 
     }
@@ -405,9 +403,11 @@ public class MainFragment extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AddListData()).commit();
 
     } private void setView3() {
+        setmProgress();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AdminUserList()).commit();
 
     }private void setView4() {
+        setmProgress();
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new Personal_Center()).commit();
 
     }
@@ -439,4 +439,20 @@ public class MainFragment extends AppCompatActivity {
         },1000);
     }
 
+    @Override
+    protected void onRestart() {
+        switch (getTitle().toString()){
+            case "管理员列表":
+                setView3();
+                break;
+            case "主页":
+                setView1();
+                break;
+            case "个人中心":
+                setView4();
+                break;
+        }
+        super.onRestart();
+
+    }
 }

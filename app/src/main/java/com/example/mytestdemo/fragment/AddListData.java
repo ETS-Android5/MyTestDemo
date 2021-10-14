@@ -70,6 +70,7 @@ public class AddListData extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.addlist, container, false);
         initView();
+        photourl=null;
         setHasOptionsMenu(true);
         requireActivity().setTitle("添加信息");
         Bmob.initialize(getContext(), "08f5717e435ccb57bd2b266c62b30563");
@@ -106,7 +107,7 @@ public class AddListData extends Fragment {
                     lost.setDescribe(describe);
                     lost.setPhone(phone);
                     lost.setTitle(title);
-                    if (!photourl.isEmpty()){
+                    if (photourl!=null){
                     lost.setDate(photourl);
                     }
                     lost.save(new SaveListener<String>() {

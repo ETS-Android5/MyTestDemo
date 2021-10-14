@@ -44,14 +44,14 @@ public class LostDescribe extends AppCompatActivity {
 
         initView();
         Intent intent = getIntent();
+//        ivphoto.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
         String title = intent.getStringExtra("title");
         String describe = intent.getStringExtra("describe");
         String date = intent.getStringExtra("date");
         String phone = intent.getStringExtra("phone");
         String photo =intent.getStringExtra("photo");
-        Glide.with(LostDescribe.this).load(photo).apply(new RequestOptions()
-                .transforms(new CenterCrop(), new RoundedCorners(20)
-                )).into(ivphoto);
+        Glide.with(LostDescribe.this).load(photo).placeholder(R.drawable.qj315loading).into(ivphoto);
         mTitleDescribe.setText(title);
         mMsgDataDescribe.setText(describe);
         mMsgDataDescribe.setMovementMethod(ScrollingMovementMethod.getInstance());//文字滚动

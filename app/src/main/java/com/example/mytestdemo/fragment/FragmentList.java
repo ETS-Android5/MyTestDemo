@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -84,6 +86,8 @@ public class FragmentList extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Lost lost = losts.get(position);
                 String objectId = lost.getObjectId();
+                String photos = lost.getDate();
+
 
                 AlertDialog dialogueDel = new AlertDialog.Builder(getContext())
                         .setTitle("提示")
@@ -102,6 +106,21 @@ public class FragmentList extends Fragment {
                                             updateDate();
                                         } else {
                                             Toast.makeText(getContext(), "删除失败！" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                                BmobFile file = new BmobFile();
+                                file.setUrl(photos);//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
+                                file.delete(new UpdateListener() {
+
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if(e==null){
+                                            Log.i("del", "done:删除图片成功 ");
+                                        }else{
+                                            Toast.makeText(getContext(), "图片资源删除失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                            toast("文件删除失败："+e.getErrorCode()+","+e.getMessage());
                                         }
                                     }
                                 });
@@ -147,6 +166,7 @@ public class FragmentList extends Fragment {
         }
 
     }
+
 
 
 }
