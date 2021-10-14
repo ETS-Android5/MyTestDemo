@@ -43,43 +43,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="账号："
-                android:textSize="24sp"/>
-            <EditText
-                android:textStyle="bold"
-                android:id="@+id/username_edt"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="#00BCD4"
-                android:hint="请输入用户名"
-                android:inputType="text"/>
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:background="@android:color/transparent"
+                    android:textStyle="bold"
+                    android:id="@+id/username_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:hint="请输入用户名"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="密码："
-                android:textSize="24sp"/>
-            <EditText
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:id="@+id/password_edt"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="#03A9F4"
-                android:hint="请输入密码"
-                android:inputType="textPassword"/>
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:background="@android:color/transparent"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:id="@+id/password_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:hint="请输入密码"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

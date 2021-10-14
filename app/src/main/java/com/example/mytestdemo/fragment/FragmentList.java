@@ -167,6 +167,9 @@ public class FragmentList extends Fragment {
 
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateDate();
+    }
 }

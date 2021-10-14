@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,12 +24,18 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.UpdatePassword;
+import com.example.mytestdemo.adapter.AddAdapter;
+import com.example.mytestdemo.adapter.AddAdministrator;
+import com.example.mytestdemo.lost.Lost;
 import com.example.mytestdemo.update.update;
+import com.example.mytestdemo.userlist.UserList;
 
 import java.io.IOException;
+import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 public class Personal_Center extends Fragment {
@@ -39,12 +46,14 @@ public class Personal_Center extends Fragment {
     private Button stopmusic, updateok;
     private MediaPlayer mediaPlayer;
     private String s;
+    private ListView feedback;
 
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.personal_center, container, false);
         initView();
+        UserList();
         Intent username = requireActivity().getIntent();
         View users = view.findViewById(R.id.user_data);
         users.getBackground().setAlpha(148);
@@ -115,6 +124,22 @@ public class Personal_Center extends Fragment {
 
     }
 
+    public void UserList() {
+        BmobQuery<UserList> query = new BmobQuery<>();
+        query.order("-createdAt");
+        query.findObjects(new FindListener<UserList>() {
+            @Override
+            public void done(List<UserList> list, BmobException e) {
+                if (e == null) {
+                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
+                    feedback.deferNotifyDataSetChanged();
+                } else {
+                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -132,7 +157,14 @@ public class Personal_Center extends Fragment {
         mAvatar = view.findViewById(R.id.Avatar);
         mUserNameTv = view.findViewById(R.id.user_name_tv);
         stopmusic = view.findViewById(R.id.stop_music);
-        mediaPlayer = new MediaPlayer();
         updateok = view.findViewById(R.id.update_password);
+        feedback=view.findViewById(R.id.feedback_list);
+        mediaPlayer = new MediaPlayer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        UserList();
     }
 }

@@ -3,13 +3,22 @@ package com.example.mytestdemo.userlist;
 import cn.bmob.v3.BmobObject;
 
 public class UserList extends BmobObject {
-    private String userlist;
+    private String feedbackmsg;
+    private String feedbackuser;
 
-    public String getUserlist() {
-        return userlist;
+    public String getFeedbackmsg() {
+        return feedbackmsg;
     }
 
-    public void setUserlist(String userlist) {
-        this.userlist = userlist;
+    public void setFeedbackmsg(String feedbackmsg) {
+        this.feedbackmsg = feedbackmsg;
+    }
+
+    public String getFeedbackuser() {
+        return feedbackuser;
+    }
+
+    public void setFeedbackuser(String feedbackuser) {
+        this.feedbackuser = feedbackuser;
     }
 }

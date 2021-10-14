@@ -3,6 +3,10 @@ package com.example.mytestdemo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -28,6 +32,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.mytestdemo.dialog.DialogUpdateV;
+import com.example.mytestdemo.dialog.Feedback;
 import com.example.mytestdemo.dialog.SetProgressBar;
 import com.example.mytestdemo.dialog.UpdateTest;
 import com.example.mytestdemo.fragment.AddListData;
@@ -36,6 +41,10 @@ import com.example.mytestdemo.fragment.FragmentList;
 import com.example.mytestdemo.fragment.Personal_Center;
 import com.example.mytestdemo.getapk.APKVersionCodeUtils;
 import com.example.mytestdemo.update.update;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -51,7 +60,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
 public class MainFragment extends AppCompatActivity {
-    LinearLayout fragment;
+//    LinearLayout fragment;
     private long exitTime = 0;
     String name;
     private String code1,url,text;
@@ -62,7 +71,7 @@ public class MainFragment extends AppCompatActivity {
     private int code;
     private int mProgress;
     private final String mVersion_name="app-release.apk";
-    private RadioButton home,alllist,personal_center;
+//    private RadioButton home,alllist,personal_center;
 
     @SuppressLint("HandlerLeak")
     private final Handler mUpdateProgressHandler = new Handler(){
@@ -86,36 +95,54 @@ public class MainFragment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_fragment);
+        name = BmobUser.getCurrentUser().getUsername();
 
-        initView();
-//        Bmob.resetDomain("https://files.lumingyuan6868.xyz");
-        Bmob.initialize(MainFragment.this, "08f5717e435ccb57bd2b266c62b30563");
-        setView1();
-      Intent userdata =getIntent();
-         name = userdata.getStringExtra("username");
-         querySingleData();
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_admins, R.id.navigation_person_center)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+        navView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull @NotNull MenuItem item) {
 
-        alllist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setView3();
-                setTitle("管理员列表");
+                Toast.makeText(MainFragment.this, "当前页已在"+item.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setView1();
-                setTitle("主页");
-            }
-        });
-        personal_center.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setView4();
-                setTitle("个人中心");
-            }
-        });
+
+
+
+//        initView();
+////        Bmob.resetDomain("https://files.lumingyuan6868.xyz");
+//        Bmob.initialize(MainFragment.this, "08f5717e435ccb57bd2b266c62b30563");
+//        setView1();
+//      Intent userdata =getIntent();
+//         name = userdata.getStringExtra("username");
+//         querySingleData();
+//
+//        alllist.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setView3();
+//                setTitle("管理员列表");
+//            }
+//        });
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setView1();
+//                setTitle("主页");
+//            }
+//        });
+//        personal_center.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setView4();
+//                setTitle("个人中心");
+//            }
+//        });
 
     }
 
@@ -155,6 +182,9 @@ public class MainFragment extends AppCompatActivity {
                 break;
             case R.id.help:
                 Toast.makeText(this, "帮助", Toast.LENGTH_SHORT).show();
+                Feedback feedback=new Feedback(MainFragment.this);
+                feedback.setCancelable(true);
+                feedback.show();
                 break;
             case R.id.add:
                 Toast.makeText(this, "添加信息", Toast.LENGTH_SHORT).show();
@@ -393,66 +423,66 @@ public class MainFragment extends AppCompatActivity {
     }
 
 
-    private void setView1() {
-        setmProgress();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new FragmentList()).commit();
-
-    }
-
-    private void setView2() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AddListData()).commit();
-
-    } private void setView3() {
-        setmProgress();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AdminUserList()).commit();
-
-    }private void setView4() {
-        setmProgress();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new Personal_Center()).commit();
-
-    }
+//    private void setView1() {
+//        setmProgress();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new FragmentList()).commit();
+//
+//    }
+//
+//    private void setView2() {
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AddListData()).commit();
+//
+//    } private void setView3() {
+//        setmProgress();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AdminUserList()).commit();
+//
+//    }private void setView4() {
+//        setmProgress();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new Personal_Center()).commit();
+//
+//    }
 
     private void  initView(){
-         fragment = (LinearLayout) findViewById(R.id.fragment_list);
-         home=findViewById(R.id.home_rb);
-         alllist=findViewById(R.id.all_admin_list);
-         personal_center=findViewById(R.id.Personal_Center);
+//         fragment = (LinearLayout) findViewById(R.id.fragment_list);
+//         home=findViewById(R.id.home_rb);
+//         alllist=findViewById(R.id.all_admin_list);
+//         personal_center=findViewById(R.id.Personal_Center);
 
     }
-    private void setmProgress(){
-//        AlertDialog.Builder builderpg=new AlertDialog.Builder(MainFragment.this);
-//        @SuppressLint("InflateParams") View viewpg=LayoutInflater.from(MainFragment.this).inflate(R.layout.dialog_rau_progressbar,null);
-//        builderpg.setView(viewpg);
-//        ProgressBar progressBar=viewpg.findViewById(R.id.id_progress_ra);
-//        builderpg.setCancelable(false);
-//        builderpg.create();
-//        builderpg.show();
-
-        SetProgressBar setProgressBar=new SetProgressBar(MainFragment.this);
-        setProgressBar.show();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setProgressBar.dismiss();
-            }
-        },1000);
-    }
-
-    @Override
-    protected void onRestart() {
-        switch (getTitle().toString()){
-            case "管理员列表":
-                setView3();
-                break;
-            case "主页":
-                setView1();
-                break;
-            case "个人中心":
-                setView4();
-                break;
-        }
-        super.onRestart();
-
-    }
+//    private void setmProgress(){
+////        AlertDialog.Builder builderpg=new AlertDialog.Builder(MainFragment.this);
+////        @SuppressLint("InflateParams") View viewpg=LayoutInflater.from(MainFragment.this).inflate(R.layout.dialog_rau_progressbar,null);
+////        builderpg.setView(viewpg);
+////        ProgressBar progressBar=viewpg.findViewById(R.id.id_progress_ra);
+////        builderpg.setCancelable(false);
+////        builderpg.create();
+////        builderpg.show();
+//
+//        SetProgressBar setProgressBar=new SetProgressBar(MainFragment.this);
+//        setProgressBar.show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setProgressBar.dismiss();
+//            }
+//        },1000);
+//    }
+//
+//    @Override
+//    protected void onRestart() {
+//        switch (getTitle().toString()){
+//            case "管理员列表":
+//                setView3();
+//                break;
+//            case "主页":
+//                setView1();
+//                break;
+//            case "个人中心":
+//                setView4();
+//                break;
+//        }
+//        super.onRestart();
+//
+//    }
 }

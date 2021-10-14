@@ -24,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -39,7 +40,7 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class Login extends AppCompatActivity {
 
-    EditText username, password;
+    TextInputEditText username, password;
     Button login;
     TextView address, wz, tvzc;
     CheckBox savePwd;
@@ -62,7 +63,7 @@ public class Login extends AppCompatActivity {
         }
         init();//*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
         View v = findViewById(R.id.snackbar_bar);
-        v.getBackground().setAlpha(148);
+        v.getBackground().setAlpha(180);
         boolean checked = sp.getBoolean("checked", false);
         if (checked) {
             savePwd.setChecked(true);
