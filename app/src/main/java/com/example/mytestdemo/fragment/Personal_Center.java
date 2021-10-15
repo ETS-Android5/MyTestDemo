@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,19 +23,13 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.UpdatePassword;
-import com.example.mytestdemo.adapter.AddAdapter;
-import com.example.mytestdemo.adapter.AddAdministrator;
 import com.example.mytestdemo.dialog.SetProgressBar;
-import com.example.mytestdemo.lost.Lost;
 import com.example.mytestdemo.update.update;
-import com.example.mytestdemo.userlist.UserList;
 
 import java.io.IOException;
-import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 public class Personal_Center extends Fragment {
@@ -47,7 +40,10 @@ public class Personal_Center extends Fragment {
     private Button stopmusic, updateok;
     private MediaPlayer mediaPlayer;
     private String s;
-//    private ListView feedback;
+    private SetProgressBar progressBar;
+    //    private ListView feedback;
+    private boolean isAvatarLoaded = false;
+    private boolean isMusicLoaded = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -59,47 +55,60 @@ public class Personal_Center extends Fragment {
         View users = view.findViewById(R.id.user_data);
         users.getBackground().setAlpha(148);
         mUserNameTv.setText("用户名:" + username.getStringExtra("username"));
-
-        BmobQuery<update> bmobQuery = new BmobQuery<update>();
-        bmobQuery.getObject("Gb5WEEEK", new QueryListener<update>() {
-            @Override
-            public void done(update object, BmobException e) {
-                if (e == null) {
+        try {
+            BmobQuery<update> bmobQuery = new BmobQuery<update>();
+            bmobQuery.getObject("Gb5WEEEK", new QueryListener<update>() {
+                @Override
+                public void done(update object, BmobException e) {
+                    if (e == null) {
 //                            toast("查询成功");
-                    s = object.getapkUrl();
+                        s = object.getapkUrl();
 //                    Log.i("APKURL", "done: " + s);
-                    Log.i("TAG", "onStart: " + s);
-                    Glide.with(requireActivity()).load(s).apply(new RequestOptions()
-                            .transforms(new CenterCrop(), new RoundedCorners(20)
-                            )).into(mAvatar);
-
-                } else {
+                        Log.i("TAG", "onStart: " + s);
+                        try {
+                            Glide.with(requireActivity()).load(s).apply(new RequestOptions()
+                                    .transforms(new CenterCrop(), new RoundedCorners(20)
+                                    )).into(mAvatar);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    } else {
 //                            toast("查询失败：" + e.getMessage());
-                    Toast.makeText(getContext(), "头像资源加载失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        BmobQuery<update> bmobimg = new BmobQuery<update>();
-        bmobimg.getObject("le8pUUUX", new QueryListener<update>() {
-            @Override
-            public void done(update update, BmobException e) {
-                if (e == null) {
-                    try {
-                        String url = update.getapkUrl();
-                        mediaPlayer.setDataSource(url);
-                        mediaPlayer.prepare();
-                    } catch (IOException es) {
-                        es.printStackTrace();
+                        Toast.makeText(getContext(), "头像资源加载失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    Toast.makeText(getContext(), "音频资源加载失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    isAvatarLoaded = true;
+                    if (isMusicLoaded) {
+                        progressBar.dismiss();
+                    }
                 }
-            }
-        });
+            });
 
+            BmobQuery<update> bmobimg = new BmobQuery<update>();
+            bmobimg.getObject("le8pUUUX", new QueryListener<update>() {
+                @Override
+                public void done(update update, BmobException e) {
+                    if (e == null) {
+                        try {
+                            String url = update.getapkUrl();
+                            mediaPlayer.setDataSource(url);
+                            mediaPlayer.prepare();
+                        } catch (IOException es) {
+                            es.printStackTrace();
+                        }
 
+                    } else {
+                        Toast.makeText(getContext(), "音频资源加载失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    isMusicLoaded = true;
+                    if (isAvatarLoaded) {
+                        progressBar.dismiss();
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressBar.dismiss();
+        }
         stopmusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,8 +128,6 @@ public class Personal_Center extends Fragment {
                 startActivity(new Intent(requireActivity(), UpdatePassword.class));
             }
         });
-
-
         return view;
 
     }
@@ -161,13 +168,20 @@ public class Personal_Center extends Fragment {
         updateok = view.findViewById(R.id.update_password);
 //        feedback=view.findViewById(R.id.feedback_list);
         mediaPlayer = new MediaPlayer();
+        progressBar = new SetProgressBar(requireActivity());
     }
 
     @Override
     public void onResume() {
-        SetProgressBar progressBar=new SetProgressBar(requireActivity());
         progressBar.show();
         super.onResume();
 //        UserList();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isAvatarLoaded = false;
+        isMusicLoaded = false;
     }
 }

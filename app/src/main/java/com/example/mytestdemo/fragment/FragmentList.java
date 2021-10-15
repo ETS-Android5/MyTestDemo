@@ -24,8 +24,8 @@ import com.example.mytestdemo.adapter.AddAdapter;
 import com.example.mytestdemo.dialog.SetProgressBar;
 import com.example.mytestdemo.lost.Lost;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
@@ -38,8 +38,12 @@ import cn.bmob.v3.listener.UpdateListener;
 public class FragmentList extends Fragment {
     View view;
     ListView listView;
-    List<Lost> losts;
+    List<Lost> losts = new ArrayList<>();
     TextView textViewtop;
+    private boolean isLoad = true;
+    private SetProgressBar progressBar;
+    private long prevTime = 0;
+    private long currTime = 0;
 
     @SuppressLint("SetTextI18n")
     @Nullable
@@ -50,7 +54,7 @@ public class FragmentList extends Fragment {
         textViewtop = view.findViewById(R.id.text1);
         requireActivity().setTitle("首页");
 //        textViewtop.setMovementMethod(new ScrollingMovementMethod());
-
+        progressBar = new SetProgressBar(requireActivity());
         BmobQuery<Messages> bmobQuery = new BmobQuery<Messages>();
         bmobQuery.getObject("Hnyl4449", new QueryListener<Messages>() {
             @Override
@@ -65,8 +69,6 @@ public class FragmentList extends Fragment {
         });
         listView = view.findViewById(R.id.list_view);
 //        listView.getBackground().setAlpha(150);
-        updateDate();
-
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -78,7 +80,7 @@ public class FragmentList extends Fragment {
                         intent.putExtra("describe", lost.getDescribe());
                         intent.putExtra("date", lost.getCreatedAt());
                         intent.putExtra("phone", lost.getPhone());
-                        intent.putExtra("photo",lost.getDate());//图片
+                        intent.putExtra("photo", lost.getDate());//图片
                         startActivity(intent);
                     }
                 });
@@ -117,10 +119,10 @@ public class FragmentList extends Fragment {
 
                                     @Override
                                     public void done(BmobException e) {
-                                        if(e==null){
+                                        if (e == null) {
                                             Log.i("del", "done:删除图片成功 ");
-                                        }else{
-                                            Toast.makeText(getContext(), "图片资源删除失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "图片资源删除失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
 //                                            toast("文件删除失败："+e.getErrorCode()+","+e.getMessage());
                                         }
                                     }
@@ -153,16 +155,19 @@ public class FragmentList extends Fragment {
                     losts = list;
                     listView.setAdapter(new AddAdapter(getActivity(), losts));
                     listView.deferNotifyDataSetChanged();
+
                 } else {
                     Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
     }
-    public void adminUser(AlertDialog dialog){
-        Intent intent= requireActivity().getIntent();
+
+    public void adminUser(AlertDialog dialog) {
+        Intent intent = requireActivity().getIntent();
         String username = intent.getStringExtra("username");
-        if (username.contentEquals("QJ315")){
+        if (username.contentEquals("QJ315")) {
             dialog.show();
         }
 
@@ -170,9 +175,27 @@ public class FragmentList extends Fragment {
 
     @Override
     public void onResume() {
-        SetProgressBar progressBar=new SetProgressBar(requireActivity());
-        progressBar.show();
+//        currTime = System.currentTimeMillis();
         super.onResume();
-        updateDate();
+//        if ((currTime - prevTime) >= 1000) {
+//            Toast.makeText(getContext(), "load", Toast.LENGTH_SHORT).show();
+        progressBar.show();
+        try {
+            updateDate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressBar.dismiss();
+        }
+//        } else {
+//            listView.setAdapter(new AddAdapter(getActivity(), losts));
+//            listView.deferNotifyDataSetChanged();
+//            progressBar.dismiss();
+//        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        prevTime = currTime;
     }
 }

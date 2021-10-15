@@ -1,9 +1,8 @@
 package com.example.mytestdemo.fragment;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,17 +36,20 @@ public class AdminUserList extends Fragment {
     private Button mAddAdministrator;
     private ListView feedback;
     private List<UserList> feedlist;
+    private SetProgressBar progressBar;
+
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable  Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.admin_user,container,false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.admin_user, container, false);
+
         initView();
         UserList();
         mAddAdministrator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserListView list=new UserListView(requireActivity());
+                UserListView list = new UserListView(requireActivity());
                 list.setCancelable(true);
                 list.setTitle("用户列表");
                 list.show();
@@ -57,12 +59,12 @@ public class AdminUserList extends Fragment {
         feedback.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                UserList userList=feedlist.get(position);
+                UserList userList = feedlist.get(position);
                 String objectId = userList.getObjectId();
-                AlertDialog dialog=new AlertDialog.Builder(requireActivity()).setTitle("提示").setMessage("您确定要删除此条留言吗？").setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                AlertDialog dialog = new AlertDialog.Builder(requireActivity()).setTitle("提示").setMessage("您确定要删除此条留言吗？").setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        UserList listed=new UserList();
+                        UserList listed = new UserList();
                         listed.setObjectId(objectId);
                         listed.delete(new UpdateListener() {
                             @Override
@@ -93,11 +95,12 @@ public class AdminUserList extends Fragment {
     }
 
 
-
     private void initView() {
         mAddAdministrator = view.findViewById(R.id.add_administrator);
-        feedback= view.findViewById(R.id.user_listview);
+        feedback = view.findViewById(R.id.user_listview);
+        progressBar = new SetProgressBar(requireActivity());
     }
+
     public void UserList() {
         BmobQuery<UserList> query = new BmobQuery<>();
         query.order("-createdAt");
@@ -105,29 +108,35 @@ public class AdminUserList extends Fragment {
             @Override
             public void done(List<UserList> list, BmobException e) {
                 if (e == null) {
-                    feedlist=list;
-                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
+                    feedlist = list;
+                    feedback.setAdapter(new AddAdministrator(getActivity(), list));
                     feedback.deferNotifyDataSetChanged();
+
                 } else {
                     Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
                 }
+                progressBar.dismiss();
             }
         });
     }
 
-    public void adminUser(AlertDialog dialog){
+    public void adminUser(AlertDialog dialog) {
         String username = BmobUser.getCurrentUser().getUsername();
-        if (username.contentEquals("QJ315")){
+        if (username.contentEquals("QJ315")) {
             dialog.show();
         }
 
     }
+
     @Override
     public void onResume() {
-        SetProgressBar progressBar=new SetProgressBar(requireActivity());
         progressBar.show();
         super.onResume();
-
-        UserList();
+        try {
+            UserList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            progressBar.dismiss();
+        }
     }
 }

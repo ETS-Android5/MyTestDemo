@@ -1,7 +1,6 @@
 package com.example.mytestdemo.fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,8 +26,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -37,7 +34,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.lost.Lost;
@@ -70,7 +66,7 @@ public class AddListData extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.addlist, container, false);
         initView();
-        photourl=null;
+        photourl = null;
         setHasOptionsMenu(true);
         requireActivity().setTitle("添加信息");
         Bmob.initialize(getContext(), "08f5717e435ccb57bd2b266c62b30563");
@@ -107,8 +103,8 @@ public class AddListData extends Fragment {
                     lost.setDescribe(describe);
                     lost.setPhone(phone);
                     lost.setTitle(title);
-                    if (photourl!=null){
-                    lost.setDate(photourl);
+                    if (photourl != null) {
+                        lost.setDate(photourl);
                     }
                     lost.save(new SaveListener<String>() {
                         @Override
@@ -136,16 +132,18 @@ public class AddListData extends Fragment {
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                Intent data = result.getData();
-                ClipData clipData = data.getClipData();
-                if (clipData==null||clipData.getItemCount()==0){
+        intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            Intent data = result.getData();
+            if (data != null) {
+                ClipData clipData = Objects.requireNonNull(data).getClipData();
+                if (clipData == null || clipData.getItemCount() == 0) {
+
                     Toast.makeText(getContext(), "未选择任何图片", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     handImage(clipData.getItemAt(0).getUri());
                 }
+            }else {
+                Log.i("TAG", "onCreate: data为空 ");
             }
         });
     }
@@ -175,7 +173,7 @@ public class AddListData extends Fragment {
         mMessageData = view.findViewById(R.id.message_data);
         mReleaseBtn = view.findViewById(R.id.release_btn);
         addImg = view.findViewById(R.id.add_img);
-        goback=view.findViewById(R.id.go_rb_back);
+        goback = view.findViewById(R.id.go_rb_back);
         imG = view.findViewById(R.id.Img);
         mMessageData.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//多行模式
         mMessageData.setSingleLine(false);//是否单行模式
@@ -270,14 +268,14 @@ public class AddListData extends Fragment {
 
                 @Override
                 public void done(BmobException e) {
-                    if(e==null){
+                    if (e == null) {
                         //bmobFile.getFileUrl()--返回的上传文件的完整地址
 //                        Toast.makeText(getContext(), "上传文件成功:"+bmobFile.getFileUrl(), Toast.LENGTH_SHORT).show();
 
-                        Log.i("Bmob", "done: "+bmobFile.getFileUrl());
-                        photourl=bmobFile.getFileUrl();
-                    }else{
-                        Toast.makeText(getContext(), "上传失败:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.i("Bmob", "done: " + bmobFile.getFileUrl());
+                        photourl = bmobFile.getFileUrl();
+                    } else {
+                        Toast.makeText(getContext(), "上传失败:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

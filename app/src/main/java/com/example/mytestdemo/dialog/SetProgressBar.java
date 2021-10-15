@@ -20,12 +20,12 @@ public class SetProgressBar extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.dialog_rau_progressbar);
         super.onCreate(savedInstanceState);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        },1000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                dismiss();
+//            }
+//        },1000);
         setCancelable(false);
 
     }

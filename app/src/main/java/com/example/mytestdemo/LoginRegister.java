@@ -12,6 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Objects;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
@@ -20,9 +23,9 @@ import cn.bmob.v3.listener.SaveListener;
 public class LoginRegister extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
-    private EditText mUserName;
-    private EditText mUserPassword;
-    private EditText mUserPassword2;
+    private TextInputEditText mUserName;
+    private TextInputEditText mUserPassword;
+    private TextInputEditText mUserPassword2;
     private Button mCreateYes;
     private TextView mCreateNo;
     private CoordinatorLayout mContainer;
@@ -38,9 +41,9 @@ public class LoginRegister extends AppCompatActivity {
         mCreateYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUserName.getText().toString();
-                String password1 = mUserPassword.getText().toString();
-                String password2 = mUserPassword2.getText().toString();
+                String username = Objects.requireNonNull(mUserName.getText()).toString();
+                String password1 = Objects.requireNonNull(mUserPassword.getText()).toString();
+                String password2 = Objects.requireNonNull(mUserPassword2.getText()).toString();
                 if (username.equals("")||password1.equals("")||password2.equals("")){
                     Toast.makeText(LoginRegister.this, "输入不能为空！", Toast.LENGTH_SHORT).show();
                 }else if (!password1.equals(password2)){
