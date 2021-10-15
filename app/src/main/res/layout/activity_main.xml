@@ -1,67 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/server_time"
-            android:layout_width="wrap_content"
-            android:text="服务器时间："
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="45dp"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="#03A9F4"
-            android:text="@string/bmob_test"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="45dp"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/phone_number_edt"
-            android:layout_width="match_parent"
-            android:hint="请输入手机号"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="45dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/goto_btn"
-            android:text="发送验证码"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/exit_btn"
-            android:layout_marginStart="30dp"
-            android:layout_width="wrap_content"
-            android:text="退出测试"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/fragment_list"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_gravity="top"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical" >-->
 
-</LinearLayout>
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+<!--        <RadioGroup-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <RadioButton-->
+<!--                android:id="@+id/home_rb"-->
+<!--                android:padding="5dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="首页"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center"-->
+<!--                android:button="@null"-->
+<!--                android:drawableTop="@drawable/homepage3" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/all_admin_list"-->
+<!--                android:padding="5dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:gravity="center"-->
+<!--                android:text="管理员列表"-->
+<!--                android:button="@null"-->
+<!--                android:drawableTop="@drawable/menu021" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/PersonalCenterFragment"-->
+<!--                android:padding="5dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:button="@null"-->
+<!--                android:text="个人中心"-->
+<!--                android:gravity="center"-->
+<!--                android:drawableTop="@drawable/people" />-->
+
+<!--        </RadioGroup>-->
+
+<!--    </LinearLayout>-->
+
+
+
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        android:layout_above="@id/nav_view"
+        app:navGraph="@navigation/mobile_navigation" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/nav_menu" />
+</RelativeLayout>

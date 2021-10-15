@@ -27,10 +27,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:theme">
-        <activity android:name=".AddDataMainActivity"></activity>
-        <activity android:name=".UpdatePassword" />
+        <activity android:name=".ui.activity.AddDataActivity"></activity>
+        <activity android:name=".ui.activity.UpdatePasswordActivity" />
         <activity
-            android:name=".Qj315Page"
+            android:name=".ui.activity.Qj315Page"
             android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,18 +39,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LostDescribe"
+            android:name=".ui.activity.DataDetailsActivity"
             android:exported="true"
             android:label="失物详细信息"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".MainFragment"
+            android:name=".MainActivity"
             android:label="失物招领"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".LoginRegister"
+            android:name=".ui.activity.RegisterActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".Login" />
+        <activity android:name=".ui.activity.LoginActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -67,12 +67,12 @@
             android:exported="true" />
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
-            android:authorities="com.example.mytestdemo.fragment.BmobContentProvider"
+            android:authorities="com.example.mytestdemo.ui.fragment.BmobContentProvider"
             android:exported="true"
             tools:ignore="ExportedContentProvider" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.PhoneVerifyActivity"
             android:exported="true"
             android:launchMode="singleInstance" />
     </application>

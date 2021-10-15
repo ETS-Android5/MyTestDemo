@@ -7,21 +7,21 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.mytestdemo.fragment.FragmentList"
+        android:name="com.example.mytestdemo.ui.fragment.HomeFragment"
         android:label="首页"
-        tools:layout="@layout/fragmentlist" >
+        tools:layout="@layout/fragment_home" >
 
     </fragment>
 
     <fragment
         android:id="@+id/navigation_admins"
-        android:name="com.example.mytestdemo.fragment.AdminUserList"
+        android:name="com.example.mytestdemo.ui.fragment.MessageFragment"
         android:label="功能模块"
-        tools:layout="@layout/admin_user" />
+        tools:layout="@layout/fragment_message" />
 
     <fragment
         android:id="@+id/navigation_person_center"
-        android:name="com.example.mytestdemo.fragment.Personal_Center"
+        android:name="com.example.mytestdemo.ui.fragment.PersonalCenterFragment"
         android:label="个人中心"
-        tools:layout="@layout/personal_center" />
+        tools:layout="@layout/fragment_personal_center" />
 </navigation>
