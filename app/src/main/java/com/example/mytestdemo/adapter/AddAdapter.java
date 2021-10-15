@@ -54,6 +54,7 @@ public class AddAdapter extends BaseAdapter {
         TextView phone=convertView.findViewById(R.id.phone);
         title.setText(lostTitle);
         describe.setText(lostDescribe);
+        describe.setMaxLines(2);
         date.setText(lostCreatedAt);
         phone.setText("TEL:"+lostPhone);
 

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.User;
+import com.example.mytestdemo.adapter.UserListAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +46,7 @@ public class UserListView extends Dialog {
                     public void done(List<User> object, BmobException e) {
                         if (e == null) {
                             usersList = object;
-                            
+                            mUserList.setAdapter(new UserListAdapter(getContext(),object));
                             Toast.makeText(getContext(), "" + object.size(), Toast.LENGTH_SHORT).show();
 
                         } else {

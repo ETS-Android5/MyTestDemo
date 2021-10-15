@@ -40,6 +40,8 @@ public class Feedback extends Dialog {
         msg.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//多行模式
         msg.setSingleLine(false);//是否单行模式
         msg.setHorizontallyScrolling(false);//是否水平滚动
+        msg.setLines(6);
+        msg.setVerticalScrollBarEnabled(true);
         feedbackbtn.setText("反馈");
         feedback.setText("反馈内容:");
         msg.setHint("输入反馈信息");

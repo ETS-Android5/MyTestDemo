@@ -8,7 +8,7 @@
     <item
         android:id="@+id/navigation_admins"
         android:icon="@drawable/menu021"
-        android:title="管理员列表" />
+        android:title="功能模块" />
 
     <item
         android:id="@+id/navigation_person_center"

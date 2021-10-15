@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,8 +119,14 @@ public class Login extends AppCompatActivity {
                         }
                     }
                     // System.out.println(stringBuilder.toString());
-                }else {
-                    Toast.makeText(Login.this, "IP网络异常", Toast.LENGTH_SHORT).show();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Toast.makeText(Login.this, "IP网络异常", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
 
 

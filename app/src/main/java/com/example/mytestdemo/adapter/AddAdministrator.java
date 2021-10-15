@@ -57,6 +57,7 @@ public class AddAdministrator extends BaseAdapter {
         title.setVisibility(View.GONE);
         msg.setTextColor(Color.rgb(15,247,239));
         msg.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+
         msg.setText(userList.getFeedbackmsg());
         feedbackdate.setText("时间:"+userList.getCreatedAt());
         feedbackuser.setText("用户:"+userList.getFeedbackuser());

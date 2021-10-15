@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mytestdemo.LostDescribe;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.adapter.AddAdapter;
+import com.example.mytestdemo.dialog.SetProgressBar;
 import com.example.mytestdemo.lost.Lost;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public class FragmentList extends Fragment {
             }
         });
         listView = view.findViewById(R.id.list_view);
-        listView.getBackground().setAlpha(150);
+//        listView.getBackground().setAlpha(150);
         updateDate();
 
         listView.setOnItemClickListener(
@@ -169,6 +170,8 @@ public class FragmentList extends Fragment {
 
     @Override
     public void onResume() {
+        SetProgressBar progressBar=new SetProgressBar(requireActivity());
+        progressBar.show();
         super.onResume();
         updateDate();
     }

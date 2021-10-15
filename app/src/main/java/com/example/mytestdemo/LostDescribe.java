@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class LostDescribe extends AppCompatActivity {
     private TextView mPhoneDescribe;
     private ImageView ivphoto;
     private Button callupp, gotophone;
+    private View scrollview;
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -45,7 +48,7 @@ public class LostDescribe extends AppCompatActivity {
         initView();
         Intent intent = getIntent();
 //        ivphoto.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
+        scrollview.getBackground().setAlpha(100);
         String title = intent.getStringExtra("title");
         String describe = intent.getStringExtra("describe");
         String date = intent.getStringExtra("date");
@@ -97,6 +100,7 @@ public class LostDescribe extends AppCompatActivity {
         callupp = findViewById(R.id.call_up);
         gotophone = findViewById(R.id.goto_phone);
         ivphoto=findViewById(R.id.photo);
+        scrollview=findViewById(R.id.scrollView_bg);
     }
 
     @Override

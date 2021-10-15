@@ -26,6 +26,7 @@ import com.example.mytestdemo.R;
 import com.example.mytestdemo.UpdatePassword;
 import com.example.mytestdemo.adapter.AddAdapter;
 import com.example.mytestdemo.adapter.AddAdministrator;
+import com.example.mytestdemo.dialog.SetProgressBar;
 import com.example.mytestdemo.lost.Lost;
 import com.example.mytestdemo.update.update;
 import com.example.mytestdemo.userlist.UserList;
@@ -46,14 +47,14 @@ public class Personal_Center extends Fragment {
     private Button stopmusic, updateok;
     private MediaPlayer mediaPlayer;
     private String s;
-    private ListView feedback;
+//    private ListView feedback;
 
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.personal_center, container, false);
         initView();
-        UserList();
+//        UserList();
         Intent username = requireActivity().getIntent();
         View users = view.findViewById(R.id.user_data);
         users.getBackground().setAlpha(148);
@@ -124,21 +125,21 @@ public class Personal_Center extends Fragment {
 
     }
 
-    public void UserList() {
-        BmobQuery<UserList> query = new BmobQuery<>();
-        query.order("-createdAt");
-        query.findObjects(new FindListener<UserList>() {
-            @Override
-            public void done(List<UserList> list, BmobException e) {
-                if (e == null) {
-                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
-                    feedback.deferNotifyDataSetChanged();
-                } else {
-                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//    public void UserList() {
+//        BmobQuery<UserList> query = new BmobQuery<>();
+//        query.order("-createdAt");
+//        query.findObjects(new FindListener<UserList>() {
+//            @Override
+//            public void done(List<UserList> list, BmobException e) {
+//                if (e == null) {
+//                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
+//                    feedback.deferNotifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public void onStart() {
@@ -158,13 +159,15 @@ public class Personal_Center extends Fragment {
         mUserNameTv = view.findViewById(R.id.user_name_tv);
         stopmusic = view.findViewById(R.id.stop_music);
         updateok = view.findViewById(R.id.update_password);
-        feedback=view.findViewById(R.id.feedback_list);
+//        feedback=view.findViewById(R.id.feedback_list);
         mediaPlayer = new MediaPlayer();
     }
 
     @Override
     public void onResume() {
+        SetProgressBar progressBar=new SetProgressBar(requireActivity());
+        progressBar.show();
         super.onResume();
-        UserList();
+//        UserList();
     }
 }

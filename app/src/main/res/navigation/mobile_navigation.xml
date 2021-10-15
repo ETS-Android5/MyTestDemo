@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/navigation_admins"
         android:name="com.example.mytestdemo.fragment.AdminUserList"
-        android:label="管理员列表"
+        android:label="功能模块"
         tools:layout="@layout/admin_user" />
 
     <fragment
