@@ -24,8 +24,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
-import com.example.mytestdemo.bean.User;
 import com.example.mytestdemo.bean.Bean;
+import com.example.mytestdemo.bean.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -108,8 +108,13 @@ public class LoginActivity extends AppCompatActivity {
                                 stringBuilder.append(in);
                                 Gson gson = new Gson();
                                 Bean bean = gson.fromJson(stringBuilder.toString(), Bean.class);
-                                address.setText(bean.getIp());
-                                wz.setText(bean.getAddress());
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        address.setText(bean.getIp());
+                                        wz.setText(bean.getAddress());
+                                    }
+                                });
                             } else {
                                 in = bufferedReader.readLine();
                                 bufferedReader.close();

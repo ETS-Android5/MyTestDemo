@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +24,9 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
+import com.example.mytestdemo.bean.update;
 import com.example.mytestdemo.ui.activity.UpdatePasswordActivity;
 import com.example.mytestdemo.ui.dialog.SetProgressBar;
-import com.example.mytestdemo.bean.update;
 
 import java.io.IOException;
 
@@ -34,6 +36,14 @@ import cn.bmob.v3.listener.QueryListener;
 
 public class PersonalCenterFragment extends Fragment {
 
+    @SuppressLint("HandlerLeak")
+    private final Handler handlermsg = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+
+        }
+    };
     View view;
     private ImageView mAvatar;
     private TextView mUserNameTv;
@@ -50,11 +60,97 @@ public class PersonalCenterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal_center, container, false);
         initView();
+        progressBar.show();
 //        UserList();
         Intent username = requireActivity().getIntent();
         View users = view.findViewById(R.id.user_data);
         users.getBackground().setAlpha(148);
         mUserNameTv.setText("用户名:" + username.getStringExtra("username"));
+
+        stopmusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                    stopmusic.setText("开始");
+                } else if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                    stopmusic.setText("暂停");
+                }
+            }
+        });
+
+        updateok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), UpdatePasswordActivity.class));
+            }
+        });
+
+
+        return view;
+
+    }
+
+//    public void UserList() {
+//        BmobQuery<UserList> query = new BmobQuery<>();
+//        query.order("-createdAt");
+//        query.findObjects(new FindListener<UserList>() {
+//            @Override
+//            public void done(List<UserList> list, BmobException e) {
+//                if (e == null) {
+//                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
+//                    feedback.deferNotifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+//        requireActivity().runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+
+//            }
+//        });
+    }
+
+
+    public void initView() {
+        mAvatar = view.findViewById(R.id.Avatar);
+        mUserNameTv = view.findViewById(R.id.user_name_tv);
+        stopmusic = view.findViewById(R.id.stop_music);
+        updateok = view.findViewById(R.id.update_password);
+//        feedback=view.findViewById(R.id.feedback_list);
+        mediaPlayer = new MediaPlayer();
+        progressBar = new SetProgressBar(requireActivity());
+    }
+
+    @Override
+    public void onResume() {
+        if (!isAvatarLoaded && !isMusicLoaded) {
+            progressBar.show();
+            NetworkRequest();
+        }
+        super.onResume();
+//        UserList();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isAvatarLoaded = false;
+        isMusicLoaded = false;
+    }
+
+    private void NetworkRequest() {
+
         try {
             BmobQuery<update> bmobQuery = new BmobQuery<update>();
             bmobQuery.getObject("Gb5WEEEK", new QueryListener<update>() {
@@ -92,7 +188,7 @@ public class PersonalCenterFragment extends Fragment {
                             String url = update.getapkUrl();
                             mediaPlayer.setDataSource(url);
                             mediaPlayer.prepare();
-                        } catch (IOException es) {
+                        } catch (Exception es) {
                             es.printStackTrace();
                         }
 
@@ -109,79 +205,5 @@ public class PersonalCenterFragment extends Fragment {
             e.printStackTrace();
             progressBar.dismiss();
         }
-        stopmusic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mediaPlayer.isPlaying()) {
-                    mediaPlayer.pause();
-                    stopmusic.setText("开始");
-                } else if (!mediaPlayer.isPlaying()) {
-                    mediaPlayer.start();
-                    stopmusic.setText("暂停");
-                }
-            }
-        });
-
-        updateok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(requireActivity(), UpdatePasswordActivity.class));
-            }
-        });
-        return view;
-
-    }
-
-//    public void UserList() {
-//        BmobQuery<UserList> query = new BmobQuery<>();
-//        query.order("-createdAt");
-//        query.findObjects(new FindListener<UserList>() {
-//            @Override
-//            public void done(List<UserList> list, BmobException e) {
-//                if (e == null) {
-//                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
-//                    feedback.deferNotifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-//        requireActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-
-//            }
-//        });
-    }
-
-    public void initView() {
-        mAvatar = view.findViewById(R.id.Avatar);
-        mUserNameTv = view.findViewById(R.id.user_name_tv);
-        stopmusic = view.findViewById(R.id.stop_music);
-        updateok = view.findViewById(R.id.update_password);
-//        feedback=view.findViewById(R.id.feedback_list);
-        mediaPlayer = new MediaPlayer();
-        progressBar = new SetProgressBar(requireActivity());
-    }
-
-    @Override
-    public void onResume() {
-        progressBar.show();
-        super.onResume();
-//        UserList();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        isAvatarLoaded = false;
-        isMusicLoaded = false;
     }
 }

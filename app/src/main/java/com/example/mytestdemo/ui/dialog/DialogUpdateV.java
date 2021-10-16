@@ -42,6 +42,7 @@ public class DialogUpdateV extends Dialog {
         initView();
         getVS();
         mTitle.setText("更新版本code");
+        mMsgDataDialog.setLines(1);
         mMsgDataDialog.setInputType(InputType.TYPE_CLASS_NUMBER);
         mBtnYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +79,7 @@ public class DialogUpdateV extends Dialog {
 
     private void initView() {
 
-        mTitle = findViewById(R.id.title);
+        mTitle = findViewById(R.id.titlefb);
         mMsgDataDialog = findViewById(R.id.msg_data_dialog);
         mBtnYes = findViewById(R.id.btn_yes);
     }
