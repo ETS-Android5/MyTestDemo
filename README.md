@@ -152,7 +152,8 @@ dependencies {
 **项目提交时遇到的问题**
 
 #### fatal: unable to access 'https://github.com/lmy8848/MyTestDemo.git/': OpenSSL SSL_read: Connection was reset, errno 10054
-###解决方案
+###解决方案 
+####有时候可以推送上来，有时候不行 :snowman:
 ***
  `git config --global --unset http.proxy` 
  `git config --global --unset https.proxy` 
