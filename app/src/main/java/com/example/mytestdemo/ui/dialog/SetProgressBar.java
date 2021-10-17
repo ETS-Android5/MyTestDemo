@@ -3,6 +3,7 @@ package com.example.mytestdemo.ui.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -25,6 +26,7 @@ public class SetProgressBar extends Dialog {
 //                dismiss();
 //            }
 //        },1000);
+
         setCancelable(false);
 
     }

@@ -1,7 +1,9 @@
 package com.example.mytestdemo.ui.fragment;
 
 import android.content.DialogInterface;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.mytestdemo.R;
+import com.example.mytestdemo.bean.UserList;
+import com.example.mytestdemo.receiver.MyReceiver;
 import com.example.mytestdemo.ui.adapter.AddAdministrator;
 import com.example.mytestdemo.ui.dialog.SetProgressBar;
 import com.example.mytestdemo.ui.dialog.UserListView;
-import com.example.mytestdemo.bean.UserList;
 
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -30,13 +34,14 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 
-public class MessageFragment extends Fragment {
+public class MessageFragment extends Fragment implements MyReceiver.Message {
     View view;
     private Button mAddAdministrator;
     private ListView feedback;
     private List<UserList> feedlist;
     private SetProgressBar progressBar;
-
+    private MyReceiver myReceiver;
+    private Boolean getAction=false;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -98,6 +103,12 @@ public class MessageFragment extends Fragment {
         mAddAdministrator = view.findViewById(R.id.add_administrator);
         feedback = view.findViewById(R.id.user_listview);
         progressBar = new SetProgressBar(requireActivity());
+        myReceiver = new MyReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.nangch.broadcasereceiver.MYRECEIVER");
+        requireActivity().registerReceiver(myReceiver, intentFilter);
+        myReceiver.setMessage(this);
+
     }
 
     public void UserList() {
@@ -129,6 +140,7 @@ public class MessageFragment extends Fragment {
 
     @Override
     public void onResume() {
+         getAction=true;
         progressBar.show();
         super.onResume();
         try {
@@ -137,5 +149,48 @@ public class MessageFragment extends Fragment {
             e.printStackTrace();
             progressBar.dismiss();
         }
+    }
+
+    @Override
+    public void onPause() {
+        Log.i("TAG", "onPause: 暂停");
+        super.onPause();
+    }
+
+    @Override
+    public void onStart() {
+        Log.i("TAG", "onStart: 启动");
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        getAction=false;
+        Log.i("TAG", "onStop: 停止");
+        super.onStop();
+    }
+
+    @Override
+    public void getMsg(String str) {
+        Log.i("TAG", "getMsg: "+getAction);
+        if (getAction) {
+//        Toast.makeText(requireActivity(), ""+str, Toast.LENGTH_SHORT).show();
+            progressBar.show();
+            super.onResume();
+            try {
+                UserList();
+                Log.i("TAG", "getMsg:收到处理数据 ");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                progressBar.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        requireActivity().unregisterReceiver(myReceiver);
     }
 }

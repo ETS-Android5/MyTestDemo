@@ -1,6 +1,8 @@
 package com.example.mytestdemo.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -31,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Lost;
 
@@ -54,7 +59,10 @@ public class AddDataActivity extends AppCompatActivity {
     private ImageView imG;
     private Button addImg;
     private String photourl;
+    private AlertDialog mDownloadDialog;
+    private ProgressBar mProgressBar;
     private ActivityResultLauncher<Intent> intentActivityResultLauncher;
+    private int s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +90,7 @@ public class AddDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AddDataActivity.this.finish();
+                startActivity(new Intent(AddDataActivity.this, MainActivity.class));
             }
         });
         mReleaseBtn.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +154,13 @@ public class AddDataActivity extends AppCompatActivity {
         mMessageData.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//多行模式
         mMessageData.setSingleLine(false);//是否单行模式
         mMessageData.setHorizontallyScrolling(false);//是否水平滚动
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddDataActivity.this);
+        builder.setTitle("上传中");
+        View view = LayoutInflater.from(AddDataActivity.this).inflate(R.layout.dialog_progress, null);
+        mProgressBar = view.findViewById(R.id.id_progress);
+        builder.setView(view);
+        mDownloadDialog = builder.create();
+        mDownloadDialog.setCancelable(false);
     }
 
 
@@ -166,6 +182,7 @@ public class AddDataActivity extends AppCompatActivity {
     }
 
     //启动相册的方法
+    @SuppressLint("IntentReset")
     private void openAlbum() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -222,14 +239,20 @@ public class AddDataActivity extends AppCompatActivity {
             bmobFile.uploadblock(new UploadFileListener() {
                 @Override
                 public void done(BmobException e) {
+                    mDownloadDialog.show();
                     if (e == null) {
                         //bmobFile.getFileUrl()--返回的上传文件的完整地址
 //                        Toast.makeText(AddDataActivity.this, "上传文件成功:"+bmobFile.getFileUrl(), Toast.LENGTH_SHORT).show();
-
                         Log.i("Bmob", "done: " + bmobFile.getFileUrl());
                         photourl = bmobFile.getFileUrl();
+                        if (s > 99) {
+                            mDownloadDialog.cancel();
+                            mDownloadDialog.dismiss();
+                            Log.i("TAG", "onProgress: " + s);
+                        }
                     } else {
                         Toast.makeText(AddDataActivity.this, "上传失败:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        mDownloadDialog.dismiss();
                     }
 
                 }
@@ -237,6 +260,11 @@ public class AddDataActivity extends AppCompatActivity {
                 @Override
                 public void onProgress(Integer value) {
                     // 返回的上传进度（百分比）
+                    s = value;
+                    mProgressBar.setProgress(s);
+
+
+
                 }
             });
             Toast.makeText(AddDataActivity.this, "" + bitmap, Toast.LENGTH_SHORT).show();

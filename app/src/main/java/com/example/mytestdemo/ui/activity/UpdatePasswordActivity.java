@@ -3,13 +3,17 @@ package com.example.mytestdemo.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -71,6 +75,20 @@ public class UpdatePasswordActivity extends AppCompatActivity {
 
 
 //        BmobUser.logOut();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("返回").setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if ("返回".contentEquals(item.getTitle())){
+            finish();
+            startActivity(new Intent(UpdatePasswordActivity.this,MainActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initView() {

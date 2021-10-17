@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:id="@+id/progress_bar_view"
     android:layout_height="match_parent">
 
     <ProgressBar

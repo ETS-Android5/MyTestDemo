@@ -36,6 +36,8 @@ import cn.bmob.v3.listener.QueryListener;
 
 public class PersonalCenterFragment extends Fragment {
 
+    public static final int CAMERA = 1025;// 拍照的请求码
+    public static final int ALBUM = 1026;// 选择图片的请求码
     @SuppressLint("HandlerLeak")
     private final Handler handlermsg = new Handler() {
         @Override
@@ -67,6 +69,18 @@ public class PersonalCenterFragment extends Fragment {
         users.getBackground().setAlpha(148);
         mUserNameTv.setText("用户名:" + username.getStringExtra("username"));
 
+        mAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setAction(Intent.ACTION_PICK);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, 0);
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                requireActivity().startActivityForResult(intent, ALBUM);
+            }
+        });
         stopmusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,21 +106,6 @@ public class PersonalCenterFragment extends Fragment {
 
     }
 
-//    public void UserList() {
-//        BmobQuery<UserList> query = new BmobQuery<>();
-//        query.order("-createdAt");
-//        query.findObjects(new FindListener<UserList>() {
-//            @Override
-//            public void done(List<UserList> list, BmobException e) {
-//                if (e == null) {
-//                    feedback.setAdapter(new AddAdministrator(getActivity(),list));
-//                    feedback.deferNotifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public void onStart() {
