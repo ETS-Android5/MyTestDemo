@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/lostandfound128"
@@ -25,9 +24,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTestDemo"
         android:usesCleartextTraffic="true"
-        tools:ignore="UnusedAttribute"
+        tools:ignore="AllowBackup,UnusedAttribute"
         tools:replace="android:theme">
-        <activity android:name=".ui.activity.AddDataActivity"></activity>
+
+
+        <activity android:name=".ui.activity.AlarmClockActivity">
+
+        </activity>
+
+        <receiver
+            android:name=".receiver.AlarmClockReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activity.AddDataActivity" />
         <activity android:name=".ui.activity.UpdatePasswordActivity" />
         <activity
             android:name=".ui.activity.Qj315Page"
@@ -64,7 +78,8 @@
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.BmobContentProvider"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="ExportedContentProvider" />
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.mytestdemo.ui.fragment.BmobContentProvider"
@@ -75,6 +90,22 @@
             android:name=".ui.activity.PhoneVerifyActivity"
             android:exported="true"
             android:launchMode="singleInstance" />
+
+        <service
+            android:name="com.example.mytestdemo.services.MyIntentService"
+            android:process=":alarm.ctf.time"
+            
+            android:exported="true"
+            android:enabled="true"
+            tools:ignore="ExportedService">
+            <intent-filter android:priority="1000" >
+                <action android:name="com.example.mytestdemo.services.MyIntentService" />
+            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="com.example.mytestdemo.services.MyIntentService" />-->
+<!--            </intent-filter>-->
+        </service>
     </application>
+
 
 </manifest>

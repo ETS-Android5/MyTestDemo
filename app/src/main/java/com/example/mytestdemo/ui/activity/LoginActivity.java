@@ -26,6 +26,7 @@ import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Bean;
 import com.example.mytestdemo.bean.User;
+import com.example.mytestdemo.services.MyIntentService;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -56,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Intent intent=new Intent(this,MyIntentService.class);
+//        intent.setAction("com.example.mytestdemo.services.MyIntentService");
+        startService(intent);
         Bmob.initialize(LoginActivity.this, "08f5717e435ccb57bd2b266c62b30563");
         setTitle("登录");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

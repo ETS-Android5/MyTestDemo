@@ -25,6 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.update;
+import com.example.mytestdemo.ui.activity.AlarmClockActivity;
 import com.example.mytestdemo.ui.activity.UpdatePasswordActivity;
 import com.example.mytestdemo.ui.dialog.SetProgressBar;
 
@@ -32,6 +33,7 @@ import java.io.IOException;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 public class PersonalCenterFragment extends Fragment {
@@ -49,7 +51,7 @@ public class PersonalCenterFragment extends Fragment {
     View view;
     private ImageView mAvatar;
     private TextView mUserNameTv;
-    private Button stopmusic, updateok;
+    private Button stopmusic, updateok,alarmclock;
     private MediaPlayer mediaPlayer;
     private String s;
     private SetProgressBar progressBar;
@@ -68,6 +70,13 @@ public class PersonalCenterFragment extends Fragment {
         View users = view.findViewById(R.id.user_data);
         users.getBackground().setAlpha(148);
         mUserNameTv.setText("用户名:" + username.getStringExtra("username"));
+
+        alarmclock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(),AlarmClockActivity.class));
+            }
+        });
 
         mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +135,7 @@ public class PersonalCenterFragment extends Fragment {
         mUserNameTv = view.findViewById(R.id.user_name_tv);
         stopmusic = view.findViewById(R.id.stop_music);
         updateok = view.findViewById(R.id.update_password);
+        alarmclock= view.findViewById(R.id.alarm_clock);
 //        feedback=view.findViewById(R.id.feedback_list);
         mediaPlayer = new MediaPlayer();
         progressBar = new SetProgressBar(requireActivity());
