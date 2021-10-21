@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_alarm1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置一个10秒钟后启动的闹钟"
+        android:onClick="onClick"/>
+    <Button
+        android:id="@+id/btn_alarm2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置一个每1分钟重复启动的闹钟"
+        android:onClick="onClick"/>
+    <Button
+        android:id="@+id/btn_alarm3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置一个指定时间启动的闹钟"
+        android:onClick="onClick"/>
+</LinearLayout>

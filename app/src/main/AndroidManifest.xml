@@ -36,7 +36,7 @@
             android:name=".receiver.AlarmClockReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.TIME_TICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>

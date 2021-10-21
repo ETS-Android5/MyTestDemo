@@ -32,17 +32,22 @@ public class MyIntentService extends Service {
     private AlarmClockReceiver receiver;
     public static boolean isAlive  = false;
     private  boolean isRegistered  = false;
+    private Intent intent1;
+    private PendingIntent p;
+    private AlarmManager alarm;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate() {
         super.onCreate();
         Calendar cal = Calendar.getInstance();
-        Intent intent1 = new Intent(this,MyIntentService.class);
-        intent1.setAction("com.example.mytestdemo.services.MyIntentService");
+        intent1 = new Intent(this,MyIntentService.class);
+        intent1.setAction("android.intent.action.TIME_TICK");
+
         cal.setTimeInMillis(System.currentTimeMillis());//获取当前系统时间
          //= PendingIntent.getService(this, 0, intent1, 0);
-        PendingIntent p= PendingIntent.getService(this, 0, intent1, 0);
-        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        p = PendingIntent.getService(this, 0, intent1, 0);
+        alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         // 每分钟启动一次。这个时间值视详细情况而定
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, p);
         isAlive = true;
@@ -87,9 +92,17 @@ public class MyIntentService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onTrimMemory(int level) {
+        onCreate();
 
         //保持运行的方法
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+
+        super.onStart(intent, startId);
     }
 }

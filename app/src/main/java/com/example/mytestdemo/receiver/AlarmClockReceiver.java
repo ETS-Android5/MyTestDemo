@@ -17,7 +17,7 @@ public class AlarmClockReceiver extends BroadcastReceiver {
         Log.i("TAG", "onReceive: ");
 //        String msg = intent.getStringExtra("msg");
 //        Log.i("闹钟内容：TAG", "I can live forever");
-        Toast.makeText(context, "程序后台运行中！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "程序后台运行中,将持续接受消息！", Toast.LENGTH_SHORT).show();
         if(Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
             Log.i("闹钟内容：TAG", "系统时间广播");
         }

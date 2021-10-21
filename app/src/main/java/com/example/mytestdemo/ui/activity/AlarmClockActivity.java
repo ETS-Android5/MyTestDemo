@@ -79,6 +79,7 @@ public class AlarmClockActivity extends AppCompatActivity implements View.OnClic
                 calendar3.set(Calendar.SECOND, 0);
                 calendar3.set(Calendar.MILLISECOND, 0);
                 am.set(AlarmManager.RTC, calendar3.getTimeInMillis(), pi);
+
                 break;
             default:
                 break;
