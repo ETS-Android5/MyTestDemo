@@ -4,8 +4,8 @@ import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -16,22 +16,23 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.mytestdemo.receiver.AlarmClockReceiver;
-import com.example.mytestdemo.ui.activity.AlarmClockActivity;
+
+import java.io.IOException;
+import java.net.Socket;
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
- * helper methods.
+ **********     Github https://github.com/lmy8848
+ **********     @author 麒玖网络QJ315 (NJQ-PRO)
+ **********     @address     NJQ-PC
+ **********     @time 2021/10/22 23:14
  */
 public class MyIntentService extends Service {
 
 
+    public static boolean isAlive = false;
+    public static Socket socket;
     private AlarmClockReceiver receiver;
-    public static boolean isAlive  = false;
-    private  boolean isRegistered  = false;
+    private boolean isRegistered = false;
     private Intent intent1;
     private PendingIntent p;
     private AlarmManager alarm;
@@ -40,16 +41,28 @@ public class MyIntentService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+
+        if (!IsConnect()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    connect();
+                }
+            }).start();
+        }
+
+
         Calendar cal = Calendar.getInstance();
-        intent1 = new Intent(this,MyIntentService.class);
+        intent1 = new Intent(this, MyIntentService.class);
         intent1.setAction("android.intent.action.TIME_TICK");
 
         cal.setTimeInMillis(System.currentTimeMillis());//获取当前系统时间
-         //= PendingIntent.getService(this, 0, intent1, 0);
+        //= PendingIntent.getService(this, 0, intent1, 0);
         p = PendingIntent.getService(this, 0, intent1, 0);
-        alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         // 每分钟启动一次。这个时间值视详细情况而定
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60*1000, p);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 60 * 1000, p);
         isAlive = true;
         Log.e("TAG", "onCreate: 活了");
     }
@@ -58,14 +71,14 @@ public class MyIntentService extends Service {
     @Override
     public int onStartCommand(@Nullable @org.jetbrains.annotations.Nullable Intent intent, int flags, int startId) {
 
-        if (!isRegistered){
+        if (!isRegistered) {
             receiver = new AlarmClockReceiver();
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Intent.ACTION_TIME_TICK);
             intentFilter.addAction("android.intent.action.service.start");
-            registerReceiver(receiver,intentFilter);
+            registerReceiver(receiver, intentFilter);
             Log.i("TAG", "onStartCommand:注册执行 ");
-            isRegistered= true;
+            isRegistered = true;
         }
         flags = START_STICKY;
         Log.i("TAG", "onStartCommand: 开始了");
@@ -104,5 +117,42 @@ public class MyIntentService extends Service {
     public void onStart(Intent intent, int startId) {
 
         super.onStart(intent, startId);
+    }
+
+/**
+ **********     Github https://github.com/lmy8848
+ **********     @author 麒玖网络QJ315 (NJQ-PRO)
+ **********     @address     NJQ-PC
+ **********     @time 2021/10/22 23:14
+ */
+    public Socket connect() {
+        try {
+            socket = new Socket("39.105.77.85", 5000);
+            socket.setSoTimeout(10000);
+
+        } catch (IOException e) {
+            Log.i("TAG", "connect:连接失败 "+e.getMessage());
+            e.printStackTrace();
+        }
+
+        if (socket != null) {
+            if (socket.isConnected()){
+                Log.i("TAG", "connect:连接成功！ ");
+            }
+            else {
+                Log.i("TAG", "connect: 二次验证------连接失败！");
+            }
+        } else {
+            Log.i("TAG", "connect:二次验证 异常为空！");
+        }
+        return socket;
+    }
+
+    public static boolean IsConnect() {
+        if (socket != null) {
+            return socket.isConnected();
+        } else {
+            return false;
+        }
     }
 }

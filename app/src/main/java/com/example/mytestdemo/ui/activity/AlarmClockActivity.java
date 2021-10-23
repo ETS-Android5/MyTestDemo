@@ -1,19 +1,21 @@
 package com.example.mytestdemo.ui.activity;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.IntentFilter;
 import android.icu.util.Calendar;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.receiver.AlarmClockReceiver;
@@ -23,17 +25,35 @@ public class AlarmClockActivity extends AppCompatActivity implements View.OnClic
 
     private AlarmManager am;
     private PendingIntent pi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_clock);
 
+        Intent intentmedia=getIntent();
+        String media = intentmedia.getStringExtra("media");
+        Log.i("TAG", "onCreate:*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-- ");
+        if (media!=null){
+        if (media.equals("mediaPlayer")){
+        AlertDialog builder = new AlertDialog.Builder(this).setTitle("提示")
+                .setMessage("起床了您设置默认八点二十的闹钟，已经到了该起床了，Get up！！！")
+                .setPositiveButton("好的明白", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AlarmClockReceiver.mediaPlayer.stop();
+                        dialog.dismiss();
+                    }
+                }).create();
+        builder.show();
+        }
+        }
         am = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         //实例化Intent
         Intent intent = new Intent(AlarmClockActivity.this, AlarmClockReceiver.class);
 
-        AlarmClockReceiver receiver=new AlarmClockReceiver();
+        AlarmClockReceiver receiver = new AlarmClockReceiver();
 
         //设置Intent action属性
         intent.setAction("android.intent.action.ACTION_TIME_TICK");
@@ -42,12 +62,11 @@ public class AlarmClockActivity extends AppCompatActivity implements View.OnClic
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_TIME_TICK);
         intentFilter.addAction("android.intent.action.ACTION_TIME_TICK");
-        registerReceiver(receiver,intentFilter);
+        registerReceiver(receiver, intentFilter);
 
         //实例化PendingIntent
         pi = PendingIntent.getBroadcast(AlarmClockActivity.this, 0, intent, 0);
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -67,7 +86,7 @@ public class AlarmClockActivity extends AppCompatActivity implements View.OnClic
             case R.id.btn_alarm2:
                 Calendar calendar2 = Calendar.getInstance();
                 calendar2.setTimeInMillis(System.currentTimeMillis());//获取当前系统时间
-                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),1000*60, pi);//每60秒启动一次闹钟
+                am.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), 1000 * 60, pi);//每60秒启动一次闹钟
                 Log.i("TAG", "onClick:一分钟秒间隔重复 ");
                 break;
             case R.id.btn_alarm3:

@@ -38,6 +38,7 @@ import androidx.core.content.ContextCompat;
 import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Lost;
+import com.example.mytestdemo.services.MyIntentService;
 
 import java.io.File;
 import java.util.Objects;
@@ -70,6 +71,7 @@ public class AddDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_data);
         AddDataActivity.this.setTitle("添加信息");
         getSupportActionBar().hide();
+
         initView();
         photourl = null;
         Bmob.initialize(AddDataActivity.this, "08f5717e435ccb57bd2b266c62b30563");
@@ -270,6 +272,7 @@ public class AddDataActivity extends AppCompatActivity {
             Toast.makeText(AddDataActivity.this, "" + bitmap, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(AddDataActivity.this, "fail to set image", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
