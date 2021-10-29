@@ -85,6 +85,14 @@ public class MusicListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        if (mediaPlayer!=null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+        super.onDestroy();
+    }
 }
 class MyAdapter extends BaseAdapter {
 
