@@ -7,62 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/fragment_list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:layout_gravity="top"-->
-<!--        android:gravity="center"-->
-<!--        android:layout_weight="1"-->
-<!--        android:orientation="vertical" >-->
-
-<!--    </LinearLayout>-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
-<!--        <RadioGroup-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_height="wrap_content">-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/home_rb"-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="首页"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:button="@null"-->
-<!--                android:drawableTop="@drawable/homepage3" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/all_admin_list"-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="center"-->
-<!--                android:text="管理员列表"-->
-<!--                android:button="@null"-->
-<!--                android:drawableTop="@drawable/menu021" />-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/PersonalCenterFragment"-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:button="@null"-->
-<!--                android:text="个人中心"-->
-<!--                android:gravity="center"-->
-<!--                android:drawableTop="@drawable/people" />-->
-
-<!--        </RadioGroup>-->
-
-<!--    </LinearLayout>-->
 
 
 

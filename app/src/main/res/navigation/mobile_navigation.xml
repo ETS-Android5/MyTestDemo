@@ -15,9 +15,9 @@
 
     <fragment
         android:id="@+id/navigation_admins"
-        android:name="com.example.mytestdemo.ui.fragment.MessageFragment"
+        android:name="com.example.mytestdemo.ui.fragment.FunctionalModuleFragment"
         android:label="功能模块"
-        tools:layout="@layout/fragment_message" />
+        tools:layout="@layout/message_fragment_music_list" />
 
     <fragment
         android:id="@+id/navigation_person_center"

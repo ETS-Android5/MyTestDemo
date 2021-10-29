@@ -23,6 +23,7 @@ import com.example.mytestdemo.receiver.MyReceiver;
 import com.example.mytestdemo.ui.adapter.AddAdministrator;
 import com.example.mytestdemo.ui.dialog.SetProgressBar;
 import com.example.mytestdemo.ui.dialog.UserListView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,7 @@ public class MessageFragment extends Fragment implements MyReceiver.Message {
     private SetProgressBar progressBar;
     private MyReceiver myReceiver;
     private Boolean getAction=false;
+    private TabLayout tab_layout;
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -102,6 +104,7 @@ public class MessageFragment extends Fragment implements MyReceiver.Message {
     private void initView() {
         mAddAdministrator = view.findViewById(R.id.add_administrator);
         feedback = view.findViewById(R.id.user_listview);
+//        tab_layout = view.findViewById(R.id.tab_layout);
         progressBar = new SetProgressBar(requireActivity());
         myReceiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
@@ -125,6 +128,7 @@ public class MessageFragment extends Fragment implements MyReceiver.Message {
                 } else {
                     Toast.makeText(getContext(), "数据加载失败！", Toast.LENGTH_SHORT).show();
                 }
+
                 progressBar.dismiss();
             }
         });

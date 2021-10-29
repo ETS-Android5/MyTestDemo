@@ -36,6 +36,12 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
+/**
+ **********     Github https://github.com/lmy8848
+ **********     @author 麒玖网络QJ315 (NJQ-PRO)
+ **********     @address     NJQ-PC
+ **********     @time 2021/10/29 21:10
+ */
 public class PersonalCenterFragment extends Fragment {
 
     public static final int CAMERA = 1025;// 拍照的请求码

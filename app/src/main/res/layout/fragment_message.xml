@@ -4,31 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/add_administrator"
-            android:layout_width="match_parent"
-            android:text="用户列表"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:text="留言列表"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:layout_height="wrap_content"/>
-        <ListView
-            android:id="@+id/user_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/add_administrator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="用户列表" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="留言列表"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
+
+                <ListView
+                    android:id="@+id/user_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
 </LinearLayout>
