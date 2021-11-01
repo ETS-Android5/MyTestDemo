@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.mytestdemo.services.MyIntentService;
 import com.example.mytestdemo.ui.activity.AlarmClockActivity;
 
+import java.util.Objects;
+
 public class AlarmClockReceiver extends BroadcastReceiver {
 
     public static MediaPlayer mediaPlayer;
@@ -56,17 +58,8 @@ public class AlarmClockReceiver extends BroadcastReceiver {
                             }
                         }).create();
 
-//                if (builder.getWindow() != null) {
-//                    int type;
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                        type = WindowManager.LayoutParams.TYPE_TOAST;
-//                    } else {
-//                        type = WindowManager.LayoutParams.TYPE_PHONE;
-//                    }
-//                    builder.getWindow().setType(type);
-//                }
-//                builder.show();
-                builder.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+
+                Objects.requireNonNull(builder.getWindow()).setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                 builder.show();
 
 

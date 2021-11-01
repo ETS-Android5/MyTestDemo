@@ -95,30 +95,4 @@ public class MobMusicFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onStop() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-        super.onStop();
-    }
-
-    @Override
-    public void onPause() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-        }
-        super.onDestroy();
-    }
 }

@@ -55,6 +55,7 @@ public class FunctionalModuleFragment extends Fragment {
                 ViewPagerAdapter(requireActivity().getSupportFragmentManager(),initFragments());
         mViewPager.setOffscreenPageLimit(adapter.getCount());
         mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(3);
 
         // Tablayout 关联 viewPager
         mTabLayout.setupWithViewPager(mViewPager);
