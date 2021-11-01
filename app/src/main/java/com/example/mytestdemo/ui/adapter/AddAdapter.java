@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Lost;
+import com.example.mytestdemo.bean.Song;
 
 import java.util.List;
 

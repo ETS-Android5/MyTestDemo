@@ -1,5 +1,6 @@
 package com.example.mytestdemo.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,8 +78,8 @@ public class MusicListFragment extends Fragment {
 
                                     @Override
                                     public void done(BmobException e) {
-                                        dialog.dismiss();
                                         udialog.show();
+                                        dialog.dismiss();
                                         if (e == null) {
                                             Toast.makeText(getContext(), "上传文件成功:" + bmobFile.getFileUrl(), Toast.LENGTH_SHORT).show();
                                             addMusic(psong.song,psong.singer,bmobFile.getFileUrl());
@@ -165,6 +166,15 @@ public class MusicListFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+        super.onStop();
+    }
+
+    @Override
     public void onPause() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -209,6 +219,7 @@ class MyAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
@@ -229,12 +240,12 @@ class MyAdapter extends BaseAdapter {
             myholder = (Myholder) view.getTag();
         }
 
-        myholder.t_song.setText(list.get(i).song.toString());
-        myholder.t_singer.setText(list.get(i).singer.toString());
+        myholder.t_song.setText(list.get(i).song);
+        myholder.t_position.setText(list.get(i).singer);
         String time = MusicUtils.formatTime(list.get(i).duration);
 
         myholder.t_duration.setText(time);
-        myholder.t_position.setText(i + 1 + "");
+        myholder.t_singer.setText(i + 1 + "");
 
 
         return view;

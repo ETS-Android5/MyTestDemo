@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
             public void done(List<Lost> list, BmobException e) {
                 if (e == null) {
                     losts = list;
-                    listView.setAdapter(new AddAdapter(getActivity(), losts));
+                    listView.setAdapter(new AddAdapter(getActivity(),losts));
                     listView.deferNotifyDataSetChanged();
 
                 } else {
