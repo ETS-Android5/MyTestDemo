@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Song;
 import com.example.mytestdemo.utils.MusicUtils;
+import com.example.mytestdemo.utils.PlayerMusic;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,24 +114,8 @@ public class MusicListFragment extends Fragment {
     }
 
     public void play(String path) {
-
-        try {
-            //        重置音频文件，防止多次点击会报错
-            mediaPlayer.reset();
-//        调用方法传进播放地址
-            mediaPlayer.setDataSource(path);
-//            异步准备资源，防止卡顿
-            mediaPlayer.prepareAsync();
-//            调用音频的监听方法，音频准备完毕后响应该方法进行音乐播放
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.start();
-                }
-            });
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!PlayerMusic.IsPlayer()){
+            PlayerMusic.player(path);
         }
 
 

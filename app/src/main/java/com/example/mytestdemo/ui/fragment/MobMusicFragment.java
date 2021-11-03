@@ -2,6 +2,8 @@ package com.example.mytestdemo.ui.fragment;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,16 @@ import androidx.fragment.app.Fragment;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Song;
 import com.example.mytestdemo.ui.adapter.AddGetMusic;
+import com.example.mytestdemo.utils.PlayerMusic;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
 
 
@@ -44,25 +50,23 @@ public class MobMusicFragment extends Fragment {
         mMusicGetMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
-                    String path = songList.get(position).path;
-                    //        重置音频文件，防止多次点击会报错
-                    mediaPlayer.reset();
-                    //        调用方法传进播放地址
-                    mediaPlayer.setDataSource(path);
-                    //            异步准备资源，防止卡顿
-                    mediaPlayer.prepareAsync();
-                    //            调用音频的监听方法，音频准备完毕后响应该方法进行音乐播放
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                        }
-                    });
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String path = songList.get(position).path;
+                Log.i("TAG", "onItemClick: "+ PlayerMusic.IsPlayer());
+                if (!PlayerMusic.IsPlayer()){
+                    PlayerMusic.player(path);
                 }
+
+
+            }
+        });
+        mMusicGetMusic.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Song song = songList.get(position);
+                BmobFile bmobFile=new BmobFile(song.song,"",song.path);
+                downloadFile(bmobFile);
+
+                return true;
             }
         });
 
@@ -75,6 +79,33 @@ public class MobMusicFragment extends Fragment {
         mediaPlayer = new MediaPlayer();
     }
 
+    private void downloadFile(BmobFile file){
+        //允许设置下载文件的存储路径，默认下载文件的目录为：context.getApplicationContext().getCacheDir()+"/bmob/"
+        File saveFile = new File(Environment.getExternalStorageDirectory(), file.getFilename());
+        Log.i("TAG", "downloadFile: "+Environment.getExternalStorageDirectory());
+        file.download(saveFile, new DownloadFileListener() {
+
+            @Override
+            public void onStart() {
+                Toast.makeText(getContext(), "开始下载……", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void done(String savePath,BmobException e) {
+                if(e==null){
+                    Toast.makeText(getContext(), "下载成功,保存路径:"+savePath, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "下载失败："+e.getErrorCode()+","+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onProgress(Integer value, long newworkSpeed) {
+                Log.i("TAG","下载进度："+value+","+newworkSpeed);
+            }
+
+        });
+    }
     public void updateDate() {
         BmobQuery<Song> query = new BmobQuery<>();
         query.order("-createdAt");
