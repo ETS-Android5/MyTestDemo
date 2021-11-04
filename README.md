@@ -2,9 +2,12 @@
 ## 个人博客（wordpress构建）
 [麒玖网络（QJ315）](http://www.lumingyuan6868.xyz/)
 ## Demo示例图
-![图片alt](https://files.lumingyuan6868.xyz/2021/10/16/beddfb1b5e904fc1aa384cb5c600034b.jpg)
-![图片alt](https://files.lumingyuan6868.xyz/2021/10/16/2d9b38e909994d9089583128a4499bbf.jpg)
-![图片alt](https://files.lumingyuan6868.xyz/2021/10/16/9f2bc3165c8642568bc7084b29d5b96c.jpg)
+
+[comment]: <> (![图片alt]&#40;https://files.lumingyuan6868.xyz/2021/10/16/beddfb1b5e904fc1aa384cb5c600034b.jpg&#41;)
+
+[comment]: <> (![图片alt]&#40;https://files.lumingyuan6868.xyz/2021/10/16/2d9b38e909994d9089583128a4499bbf.jpg&#41;)
+
+[comment]: <> (![图片alt]&#40;https://files.lumingyuan6868.xyz/2021/10/16/9f2bc3165c8642568bc7084b29d5b96c.jpg&#41;)
 
 ## 项目build.gradle
 ``` 
