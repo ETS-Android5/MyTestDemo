@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,6 @@ import com.example.mytestdemo.utils.MusicUtils;
 import com.example.mytestdemo.utils.PlayerMusic;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,6 @@ import cn.bmob.v3.listener.UploadFileListener;
 public class MusicListFragment extends Fragment {
     View view;
     List<Song> list;
-    private MediaPlayer mediaPlayer;
     private ListView mylist;
     private AlertDialog udialog;
     private ProgressBar mProgressBar;
@@ -138,11 +136,10 @@ public class MusicListFragment extends Fragment {
     }
 
     public void initView() {
-        mediaPlayer = new MediaPlayer();
         mylist = view.findViewById(R.id.list_music);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         builder.setTitle("上传中");
-        View view = LayoutInflater.from(requireActivity()).inflate(R.layout.dialog_progress, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_progress, null);
         mProgressBar = view.findViewById(R.id.id_progress);
         builder.setView(view);
         udialog = builder.create();

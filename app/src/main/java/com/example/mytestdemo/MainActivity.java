@@ -1,13 +1,5 @@
 package com.example.mytestdemo;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -26,6 +18,15 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.example.mytestdemo.bean.update;
 import com.example.mytestdemo.ui.activity.AddDataActivity;
 import com.example.mytestdemo.ui.activity.LoginActivity;
 import com.example.mytestdemo.ui.activity.PhoneVerifyActivity;
@@ -33,8 +34,9 @@ import com.example.mytestdemo.ui.dialog.DialogUpdateV;
 import com.example.mytestdemo.ui.dialog.Feedback;
 import com.example.mytestdemo.ui.dialog.UpdateTest;
 import com.example.mytestdemo.utils.APKVersionCodeUtils;
-import com.example.mytestdemo.bean.update;
+import com.example.mytestdemo.utils.PlayerMusic;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,25 +54,23 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
 public class MainActivity extends AppCompatActivity {
-//    LinearLayout fragment;
-    private long exitTime = 0;
+    private final String mVersion_name = "app-release.apk";
     String name;
-    private String code1,url,text;
-    private   boolean mIsCancel;
-    private    AlertDialog mDownloadDialog;
+    //    LinearLayout fragment;
+    private long exitTime = 0;
+    private String code1, url, text;
+    private boolean mIsCancel;
+    private AlertDialog mDownloadDialog;
     private String mSavePath;
     private ProgressBar mProgressBar;
     private int code;
     private int mProgress;
-    private final String mVersion_name="app-release.apk";
-//    private RadioButton home,alllist,personal_center;
-
     @SuppressLint("HandlerLeak")
-    private final Handler mUpdateProgressHandler = new Handler(){
+    private final Handler mUpdateProgressHandler = new Handler() {
         @SuppressLint("HandlerLeak")
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     // 设置进度条
                     mProgressBar.setProgress(mProgress);
@@ -83,12 +83,44 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+//    private RadioButton home,alllist,personal_center;
+    private FloatingActionButton button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         name = BmobUser.getCurrentUser().getUsername();
+        button = findViewById(R.id.fab);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
+                            if (PlayerMusic.IsPlayed()) {
+                                button.setVisibility(View.VISIBLE);
+                            } else {
+                                button.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                }
+            }
+        }).start();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayerMusic.Stop();
+            }
+        });
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_admins, R.id.navigation_person_center)
@@ -100,10 +132,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNavigationItemReselected(@NonNull @NotNull MenuItem item) {
 
-                Toast.makeText(MainActivity.this, "当前页已在"+item.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "当前页已在" + item.getTitle().toString(), Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
 //        initView();
@@ -165,16 +196,17 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.setting, menu);
         return true;
     }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_settings:
 //                Toast.makeText(this, "设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.help:
                 Toast.makeText(this, "帮助", Toast.LENGTH_SHORT).show();
-                Feedback feedback=new Feedback(MainActivity.this);
+                Feedback feedback = new Feedback(MainActivity.this);
                 feedback.setCancelable(true);
                 feedback.show();
                 break;
@@ -187,16 +219,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.sms_for_phone:
                 Toast.makeText(this, "验证码测试！", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MainActivity.this, PhoneVerifyActivity.class);
-                intent.putExtra("username",name);
+                Intent intent = new Intent(MainActivity.this, PhoneVerifyActivity.class);
+                intent.putExtra("username", name);
                 startActivity(intent);
                 break;
             case R.id.update_msg:
-                if (name.equals("QJ315")){
-                UpdateTest updateTest=new UpdateTest(MainActivity.this);
-                updateTest.create();
-                updateTest.show();
-                }else {
+                if (name.equals("QJ315")) {
+                    UpdateTest updateTest = new UpdateTest(MainActivity.this);
+                    updateTest.create();
+                    updateTest.show();
+                } else {
                     Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -204,28 +236,30 @@ public class MainActivity extends AppCompatActivity {
                 querySingleData();
                 break;
             case R.id.logon:
-                Handler handler=new Handler();
+                Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        PlayerMusic.Reset();
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         BmobUser.logOut();
                         finish();
                     }
-                },1000);
+                }, 1000);
                 break;
             case R.id.update_v:
-                if (name.equals("QJ315")){
-                DialogUpdateV updateV=new DialogUpdateV(MainActivity.this);
-                updateV.setCancelable(true);
-                updateV.show();
-                }else {
+                if (name.equals("QJ315")) {
+                    DialogUpdateV updateV = new DialogUpdateV(MainActivity.this);
+                    updateV.setCancelable(true);
+                    updateV.show();
+                } else {
                     Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void querySingleData() {
         BmobQuery<update> bmobQuery = new BmobQuery<update>();
         bmobQuery.getObject("hgLn333N", new QueryListener<update>() {
@@ -246,15 +280,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void check() {
         code = APKVersionCodeUtils.getVersionCode(this);
         int i = Integer.parseInt(this.code1);
         if (i > code) {
             showDialog();
-        }else {
+        } else {
             Toast.makeText(this, "软件已是最新版本！", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void showDialog() {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_launcher_background)//设置标题的图片
@@ -273,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(MainActivity.this, "点击了确定的按钮", Toast.LENGTH_SHORT).show();
 //                        postUrl(url);
-                         mIsCancel = false;
+                        mIsCancel = false;
                         //展示对话框
                         showDownloadDialog(url);
                         dialog.dismiss();
@@ -303,7 +339,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       mDownloadDialog = builder.create();
+        mDownloadDialog = builder.create();
         mDownloadDialog.setCancelable(false);
         mDownloadDialog.show();
 
@@ -312,65 +348,64 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void downloadAPK() {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 //                        String sdPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 //                      文件保存路径
 //                        mSavePath = sdPath + "SITdownload";
-                        mSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-                        File dir = new File(mSavePath);
+                    mSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+                    File dir = new File(mSavePath);
 //                        if (!dir.exists()){
 //                            dir.mkdirs();
 //                        }
-                       // Log.e("TAG", "run: "+ MainActivity.this.url);
-                        // 下载文件
-                        HttpURLConnection conn = null;
-                        try {
-                            conn = (HttpURLConnection) new URL(MainActivity.this.url).openConnection();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("TAG", "run: "+111 );
-                        }
-                        conn.setDoInput(true);
-                        conn.setConnectTimeout(10000);
-                        conn.setReadTimeout(10000);
-                        try {
-                            conn.connect();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("TAG", "run: "+222 );
-                        }
+                    // Log.e("TAG", "run: "+ MainActivity.this.url);
+                    // 下载文件
+                    HttpURLConnection conn = null;
+                    try {
+                        conn = (HttpURLConnection) new URL(MainActivity.this.url).openConnection();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("TAG", "run: " + 111);
+                    }
+                    conn.setDoInput(true);
+                    conn.setConnectTimeout(10000);
+                    conn.setReadTimeout(10000);
+                    try {
+                        conn.connect();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("TAG", "run: " + 222);
+                    }
 
-                        InputStream is = null;
-                        try {
-                            is = conn.getInputStream();
+                    InputStream is = null;
+                    try {
+                        is = conn.getInputStream();
 
                         int length = conn.getContentLength();
-                        Log.e("TAG", "run: "+ length);
+                        Log.e("TAG", "run: " + length);
 
                         File apkFile = new File(dir, mVersion_name);
                         FileOutputStream fos = new FileOutputStream(apkFile);
-                        Log.e("TAG", "run: "+ apkFile.getAbsolutePath());
+                        Log.e("TAG", "run: " + apkFile.getAbsolutePath());
                         int count = 0;
                         byte[] buffer = new byte[1024];
-                        while (!mIsCancel){
+                        while (!mIsCancel) {
                             int numread = is.read(buffer);
                             count += numread;
                             // 计算进度条的当前位置
                             mProgress = (int) (((float) count / length) * 100);
-                            Log.e("mProgress", "run: "+mProgress );
+                            Log.e("mProgress", "run: " + mProgress);
 
 //                            Toast.makeText(MainActivity.this, ""+mProgress, Toast.LENGTH_SHORT).show();
                             // 更新进度条
                             mUpdateProgressHandler.sendEmptyMessage(1);
 
                             // 下载完成
-                            if (numread < 0){
+                            if (numread < 0) {
                                 mUpdateProgressHandler.sendEmptyMessage(2);
                                 break;
                             }
@@ -378,10 +413,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                         fos.close();
                         is.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                }
             }
         }).start();
     }
@@ -396,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void installAPK() {
         File apkFile = new File(mSavePath, mVersion_name);
-        if (!apkFile.exists()){
+        if (!apkFile.exists()) {
             return;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -406,35 +441,12 @@ public class MainActivity extends AppCompatActivity {
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
         getApplicationContext().startActivity(intent);
 
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-////	    安装完成后，启动app（源码中少了这句话）
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        Uri uri = Uri.parse(apkFile.toString());
-//        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-//        startActivity(intent);
     }
 
 
-//    private void setView1() {
-//        setmProgress();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new HomeFragment()).commit();
-//
-//    }
-//
-//    private void setView2() {
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new AddListData()).commit();
-//
-//    } private void setView3() {
-//        setmProgress();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new MessageFragment()).commit();
-//
-//    }private void setView4() {
-//        setmProgress();
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_list,new PersonalCenterFragment()).commit();
-//
-//    }
 
-    private void  initView(){
+
+    private void initView() {
 //         fragment = (LinearLayout) findViewById(R.id.fragment_list);
 //         home=findViewById(R.id.home_rb);
 //         alllist=findViewById(R.id.all_admin_list);

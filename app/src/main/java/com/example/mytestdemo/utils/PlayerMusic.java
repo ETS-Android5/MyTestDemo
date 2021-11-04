@@ -1,9 +1,15 @@
 package com.example.mytestdemo.utils;
 
+import static java.lang.Thread.sleep;
+
+import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Formatter;
+import java.util.Locale;
 
 public class PlayerMusic {
     private static MediaPlayer mediaPlayer;
@@ -22,6 +28,7 @@ public class PlayerMusic {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     mediaPlayer.start();
+
                 }
             });
 
@@ -46,4 +53,44 @@ public class PlayerMusic {
         }
         return false;
     }
+
+    public static void Reset() {
+        mediaPlayer.release();
+    }
+
+    public static void Stop() {
+        mediaPlayer.stop();
+    }
+
+    private long getCurrentPosition() {
+        if (mediaPlayer != null) {
+            return mediaPlayer.getCurrentPosition();
+        }
+        return 0;
+    }
+    public static Boolean IsPlayed() {
+        if (mediaPlayer != null) {
+
+            try {
+                if (mediaPlayer.isPlaying()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.i("TAG", "run: " + e.getMessage());
+                return mediaPlayer.isPlaying();
+            }
+
+        }
+        else {
+            return false;
+        }
+
+    }
+
+
 }

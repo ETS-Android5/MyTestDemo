@@ -73,7 +73,7 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:hint="输入你要设置的密码"
-                    android:inputType="text"/>
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
@@ -94,7 +94,7 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:hint="再次输入密码"
-                    android:inputType="text"/>
+                    android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

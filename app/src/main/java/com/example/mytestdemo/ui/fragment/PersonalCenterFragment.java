@@ -28,6 +28,7 @@ import com.example.mytestdemo.bean.update;
 import com.example.mytestdemo.ui.activity.AlarmClockActivity;
 import com.example.mytestdemo.ui.activity.UpdatePasswordActivity;
 import com.example.mytestdemo.ui.dialog.SetProgressBar;
+import com.example.mytestdemo.utils.PlayerMusic;
 
 import java.io.IOException;
 
@@ -102,6 +103,9 @@ public class PersonalCenterFragment extends Fragment {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
                     stopmusic.setText("开始");
+                    if (PlayerMusic.IsPlayed()){
+                        PlayerMusic.Stop();
+                    }
                 } else if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
                     stopmusic.setText("暂停");

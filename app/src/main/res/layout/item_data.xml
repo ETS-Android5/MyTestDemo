@@ -6,10 +6,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        app:contentPadding="5dp"
+        app:contentPadding="8dp"
         android:layout_margin="5dp"
         app:cardElevation="10dp"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="10dp">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
