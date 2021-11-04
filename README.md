@@ -347,6 +347,13 @@ Intent.ACTION_USER_PRESENT;
 
 Intent.ACTION_WALLPAPER_CHANGED;
 //设备墙纸已改变时发出的广播
+maven阿里云maven仓库
+//        maven { url "https://maven.google.com"}
+         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+         maven { url 'http://maven.aliyun.com/nexus/content/repositories/google'}
+         maven { url 'http://maven.aliyun.com/nexus/content/repositories/gradle-plugin'}
+
 ```
  
 ---
