@@ -102,11 +102,11 @@ public class PersonalCenterFragment extends Fragment {
             public void onClick(View v) {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.pause();
-                    stopmusic.setText("开始");
+                    stopmusic.setText("播放");
+                } else if (!mediaPlayer.isPlaying()) {
                     if (PlayerMusic.IsPlayed()){
                         PlayerMusic.Stop();
                     }
-                } else if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
                     stopmusic.setText("暂停");
                 }

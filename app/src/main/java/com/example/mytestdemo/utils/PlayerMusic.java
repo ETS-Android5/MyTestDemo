@@ -1,16 +1,16 @@
 package com.example.mytestdemo.utils;
 
-import static java.lang.Thread.sleep;
-
-import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Formatter;
-import java.util.Locale;
 
+/**
+ **********     Github https://github.com/lmy8848
+ **********     @author 麒玖网络QJ315 (NJQ-PRO)
+ **********     @address     NJQ-PC
+ **********     @time 2021/11/4 18:42
+ */
 public class PlayerMusic {
     private static MediaPlayer mediaPlayer;
 
