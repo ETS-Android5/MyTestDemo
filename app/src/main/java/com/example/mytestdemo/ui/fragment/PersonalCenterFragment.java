@@ -294,20 +294,33 @@ public class PersonalCenterFragment extends Fragment {
     private void NetworkRequest() {
         String uname = BmobUser.getCurrentUser().getUsername();
         BmobQuery<User> categoryBmobQuery = new BmobQuery<>();
-        categoryBmobQuery.addWhereEqualTo("username",uname);
+        categoryBmobQuery.addWhereEqualTo("username", uname);
         categoryBmobQuery.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> object, BmobException e) {
                 if (e == null) {
-                    Log.i("TAG", "done: " + uname+object.size());
-                    if (object.size()>0) {
+                    Log.i("TAG", "done: " + uname + object.size());
+                    if (object.size() > 0) {
                         User user = object.get(0);
-                        objectId=user.getObjectId();
+                        objectId = user.getObjectId();
                         facesuser = user.getFaces();
                         try {
                             Glide.with(requireActivity()).load(facesuser).apply(new RequestOptions()
                                     .transforms(new CenterCrop(), new RoundedCorners(20)
                                     )).into(mAvatar);
+                            BmobFile file = new BmobFile();
+                            file.setUrl(facesuser);//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
+                            file.delete(new UpdateListener() {
+
+                                @Override
+                                public void done(BmobException e) {
+                                    if (e == null) {
+                                        Log.i("del", "done:删除图片成功 ");
+                                    } else {
+                                        Toast.makeText(getContext(), "数据库图片资源删除失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                             Log.i("TAG", "done: " + object.size());
                         } catch (Exception e1) {
                             e1.printStackTrace();
