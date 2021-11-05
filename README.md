@@ -19,7 +19,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "30.0.3"
 
-    defaultConfig {
+    defaultConfig { 
         applicationId "com.example.mytestdemo"
         minSdkVersion 22
         //noinspection ExpiredTargetSdkVersion

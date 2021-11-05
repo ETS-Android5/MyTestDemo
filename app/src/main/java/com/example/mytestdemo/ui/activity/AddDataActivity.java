@@ -38,7 +38,6 @@ import androidx.core.content.ContextCompat;
 import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Lost;
-import com.example.mytestdemo.services.MyIntentService;
 
 import java.io.File;
 import java.util.Objects;
@@ -59,8 +58,8 @@ public class AddDataActivity extends AppCompatActivity {
     private RadioButton goback;
     private ImageView imG;
     private Button addImg;
-    private String photourl;
     private AlertDialog mDownloadDialog;
+    private String photourl;
     private ProgressBar mProgressBar;
     private ActivityResultLauncher<Intent> intentActivityResultLauncher;
     private int s;
@@ -263,8 +262,12 @@ public class AddDataActivity extends AppCompatActivity {
                 public void onProgress(Integer value) {
                     // 返回的上传进度（百分比）
                     s = value;
-                    mProgressBar.setProgress(s);
-
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgressBar.setProgress(s);
+                        }
+                    });
 
 
                 }

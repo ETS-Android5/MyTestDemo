@@ -66,6 +66,7 @@ public class User extends BmobUser {
      * 头像
      */
     private BmobFile avatar;
+    private String Faces;
 
 
     /**
@@ -171,5 +172,13 @@ public class User extends BmobUser {
     public User setAlias(List<String> alias) {
         this.alias = alias;
         return this;
+    }
+
+    public String getFaces() {
+        return Faces;
+    }
+
+    public void setFaces(String faces) {
+        Faces = faces;
     }
 }
