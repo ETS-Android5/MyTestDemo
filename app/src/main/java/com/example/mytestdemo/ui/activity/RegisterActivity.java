@@ -2,6 +2,7 @@ package com.example.mytestdemo.ui.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,10 +16,13 @@ import com.example.mytestdemo.bean.User;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.List;
 import java.util.Objects;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -53,7 +57,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "用户名必须为大于8位小于16的字符！", Toast.LENGTH_SHORT).show();
                 } else if (password1.length() < 9 || password1.length() > 18) {
                     Toast.makeText(RegisterActivity.this, "密码为9-18为字符！", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (Repeat(username)){
+                    Log.i("TAG", "onClick: "+"用户名重复");
+                }
+                else {
                     signUp(coordinatorLayout, username, password1);
                 }
 
@@ -66,6 +73,28 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean Repeat(String username){
+        final boolean[] repeat = new boolean[1];
+        BmobQuery<User> categoryBmobQuery = new BmobQuery<>();
+        categoryBmobQuery.addWhereEqualTo("username", username);
+        categoryBmobQuery.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> object, BmobException e) {
+                if (e == null) {
+                    if (object.size() > 0) {
+                        Snackbar.make(coordinatorLayout, "已有用户使用此名字！" + object.size(), Snackbar.LENGTH_LONG).show();
+                        repeat[0] =true;
+                    }
+                    repeat[0]=false;
+                } else {
+                    Log.e("BMOB", e.toString());
+                    Snackbar.make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
+        return repeat[0];
     }
 
     private void signUp(final View view, String unm, String upwd) {

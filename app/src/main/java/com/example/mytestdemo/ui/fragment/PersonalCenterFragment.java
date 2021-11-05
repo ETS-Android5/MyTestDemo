@@ -305,7 +305,7 @@ public class PersonalCenterFragment extends Fragment {
                         objectId = user.getObjectId();
                         facesuser = user.getFaces();
                         try {
-                            Glide.with(requireActivity()).load(facesuser).apply(new RequestOptions()
+                            Glide.with(requireActivity()).load(facesuser).placeholder(android.R.drawable.ic_input_add).apply(new RequestOptions()
                                     .transforms(new CenterCrop(), new RoundedCorners(20)
                                     )).into(mAvatar);
                             BmobFile file = new BmobFile();
@@ -336,6 +336,8 @@ public class PersonalCenterFragment extends Fragment {
                 }
             }
         });
+
+
         try {
             BmobQuery<update> bmobimg = new BmobQuery<>();
             bmobimg.getObject("le8pUUUX", new QueryListener<update>() {

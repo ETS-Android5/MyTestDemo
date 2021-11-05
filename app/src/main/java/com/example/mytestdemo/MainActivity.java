@@ -1,5 +1,7 @@
 package com.example.mytestdemo;
 
+import static java.lang.Thread.sleep;
+
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-//    private RadioButton home,alllist,personal_center;
+    //    private RadioButton home,alllist,personal_center;
     private FloatingActionButton button;
 
     @Override
@@ -92,27 +94,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         name = BmobUser.getCurrentUser().getUsername();
         button = findViewById(R.id.fab);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            if (PlayerMusic.IsPlayed()) {
-                                button.setVisibility(View.VISIBLE);
-                            } else {
-                                button.setVisibility(View.GONE);
-                            }
-                        }
-                    });
+        new Thread(() -> {
+            while (true) {
+                try {
+                    sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                runOnUiThread(() -> {
+
+                    if (PlayerMusic.IsPlayed()) {
+                        button.setVisibility(View.VISIBLE);
+                    } else {
+                        button.setVisibility(View.GONE);
+                    }
+                });
             }
         }).start();
         button.setOnClickListener(new View.OnClickListener() {
@@ -237,14 +233,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.logon:
                 Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                handler.postDelayed(() -> {
+                    if (PlayerMusic.IsPlayed()) {
                         PlayerMusic.Reset();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                        BmobUser.logOut();
-                        finish();
                     }
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    BmobUser.logOut();
+                    finish();
                 }, 1000);
                 break;
             case R.id.update_v:
@@ -293,27 +288,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog() {
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_launcher_background)//设置标题的图片
+                .setIcon(R.drawable.lostandfound128)//设置标题的图片
                 .setTitle("检查到新版本")//设置对话框的标题
                 .setMessage(text)//设置对话框的内容
                 //设置对话框的按钮
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "取消更新", Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
+                .setNegativeButton("取消", (dialog12, which) -> {
+                    Toast.makeText(MainActivity.this, "取消更新", Toast.LENGTH_SHORT).show();
+                    dialog12.dismiss();
                 })
-                .setPositiveButton("更新", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "点击了确定的按钮", Toast.LENGTH_SHORT).show();
+                .setPositiveButton("更新", (dialog1, which) -> {
+                    Toast.makeText(MainActivity.this, "点击了确定的按钮", Toast.LENGTH_SHORT).show();
 //                        postUrl(url);
-                        mIsCancel = false;
-                        //展示对话框
-                        showDownloadDialog(url);
-                        dialog.dismiss();
-                    }
+                    mIsCancel = false;
+                    //展示对话框
+                    showDownloadDialog(url);
+                    dialog1.dismiss();
                 }).create();
         dialog.show();
     }
@@ -349,73 +338,70 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void downloadAPK() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        new Thread(() -> {
 
-                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 //                        String sdPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 //                      文件保存路径
 //                        mSavePath = sdPath + "SITdownload";
-                    mSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-                    File dir = new File(mSavePath);
+                mSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+                File dir = new File(mSavePath);
 //                        if (!dir.exists()){
 //                            dir.mkdirs();
 //                        }
-                    // Log.e("TAG", "run: "+ MainActivity.this.url);
-                    // 下载文件
-                    HttpURLConnection conn = null;
-                    try {
-                        conn = (HttpURLConnection) new URL(MainActivity.this.url).openConnection();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.e("TAG", "run: " + 111);
-                    }
-                    conn.setDoInput(true);
-                    conn.setConnectTimeout(10000);
-                    conn.setReadTimeout(10000);
-                    try {
-                        conn.connect();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.e("TAG", "run: " + 222);
-                    }
+                // Log.e("TAG", "run: "+ MainActivity.this.url);
+                // 下载文件
+                HttpURLConnection conn = null;
+                try {
+                    conn = (HttpURLConnection) new URL(MainActivity.this.url).openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("TAG", "run: " + 111);
+                }
+                conn.setDoInput(true);
+                conn.setConnectTimeout(10000);
+                conn.setReadTimeout(10000);
+                try {
+                    conn.connect();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.e("TAG", "run: " + 222);
+                }
 
-                    InputStream is = null;
-                    try {
-                        is = conn.getInputStream();
+                InputStream is = null;
+                try {
+                    is = conn.getInputStream();
 
-                        int length = conn.getContentLength();
-                        Log.e("TAG", "run: " + length);
+                    int length = conn.getContentLength();
+                    Log.e("TAG", "run: " + length);
 
-                        File apkFile = new File(dir, mVersion_name);
-                        FileOutputStream fos = new FileOutputStream(apkFile);
-                        Log.e("TAG", "run: " + apkFile.getAbsolutePath());
-                        int count = 0;
-                        byte[] buffer = new byte[1024];
-                        while (!mIsCancel) {
-                            int numread = is.read(buffer);
-                            count += numread;
-                            // 计算进度条的当前位置
-                            mProgress = (int) (((float) count / length) * 100);
-                            Log.e("mProgress", "run: " + mProgress);
+                    File apkFile = new File(dir, mVersion_name);
+                    FileOutputStream fos = new FileOutputStream(apkFile);
+                    Log.e("TAG", "run: " + apkFile.getAbsolutePath());
+                    int count = 0;
+                    byte[] buffer = new byte[1024];
+                    while (!mIsCancel) {
+                        int numread = is.read(buffer);
+                        count += numread;
+                        // 计算进度条的当前位置
+                        mProgress = (int) (((float) count / length) * 100);
+                        Log.e("mProgress", "run: " + mProgress);
 
 //                            Toast.makeText(MainActivity.this, ""+mProgress, Toast.LENGTH_SHORT).show();
-                            // 更新进度条
-                            mUpdateProgressHandler.sendEmptyMessage(1);
+                        // 更新进度条
+                        mUpdateProgressHandler.sendEmptyMessage(1);
 
-                            // 下载完成
-                            if (numread < 0) {
-                                mUpdateProgressHandler.sendEmptyMessage(2);
-                                break;
-                            }
-                            fos.write(buffer, 0, numread);
+                        // 下载完成
+                        if (numread < 0) {
+                            mUpdateProgressHandler.sendEmptyMessage(2);
+                            break;
                         }
-                        fos.close();
-                        is.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        fos.write(buffer, 0, numread);
                     }
+                    fos.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }).start();
@@ -442,8 +428,6 @@ public class MainActivity extends AppCompatActivity {
         getApplicationContext().startActivity(intent);
 
     }
-
-
 
 
     private void initView() {

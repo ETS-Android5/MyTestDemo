@@ -82,7 +82,7 @@ public class PlayerMusic {
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.i("TAG", "run: " + e.getMessage());
-                return mediaPlayer.isPlaying();
+                return false;
             }
 
         }

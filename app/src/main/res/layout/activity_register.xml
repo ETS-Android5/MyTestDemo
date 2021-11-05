@@ -52,7 +52,7 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:hint="请输入用户名"
-                    android:inputType="text"/>
+                    android:inputType="textPersonName"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <LinearLayout
