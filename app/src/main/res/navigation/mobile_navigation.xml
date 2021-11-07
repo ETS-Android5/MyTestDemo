@@ -9,9 +9,12 @@
         android:id="@+id/navigation_home"
         android:name="com.example.mytestdemo.ui.fragment.HomeFragment"
         android:label="首页"
-        tools:layout="@layout/fragment_home" >
-
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.example.mytestdemo.ui.fragment.WeChatFragment"
+        android:label="微聊"
+        tools:layout="@layout/fragment_wechat_list" />
 
     <fragment
         android:id="@+id/navigation_admins"

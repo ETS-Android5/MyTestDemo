@@ -220,6 +220,32 @@ public class PersonalCenterFragment extends Fragment {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
 //            imageView.setImageBitmap(bitmap);
             mAvatar.setImageBitmap(bitmap);
+            BmobQuery<User> bmobQuery = new BmobQuery<User>();
+            bmobQuery.getObject("6b6c11c537", new QueryListener<User>() {
+                @Override
+                public void done(User object,BmobException e) {
+                    if(e==null){
+//                        toast("查询成功");
+                        Log.i("TAG", "done: 获取原链接成功！");
+                        BmobFile file = new BmobFile();
+                        file.setUrl(object.getFaces());//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
+                        file.delete(new UpdateListener() {
+                            @Override
+                            public void done(BmobException e) {
+                                if (e == null) {
+                                    Log.i("del", "done:删除图片成功 ");
+                                } else {
+                                    if (isAdded()) {
+                                        Toast.makeText(requireActivity(), "数据库图片资源删除失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
+                    }else{
+                        Log.i("TAG", "done:获取原链接失败 ");
+                    }
+                }
+            });
             BmobFile bmobFile = new BmobFile(new File(imagePath));
             bmobFile.uploadblock(new UploadFileListener() {
                 @Override
@@ -233,6 +259,7 @@ public class PersonalCenterFragment extends Fragment {
 
                         User p2 = new User();
                         p2.setFaces(facesurl);
+
                         p2.update(objectId, new UpdateListener() {
 
                             @Override
@@ -308,19 +335,6 @@ public class PersonalCenterFragment extends Fragment {
                             Glide.with(requireActivity()).load(facesuser).placeholder(android.R.drawable.ic_input_add).apply(new RequestOptions()
                                     .transforms(new CenterCrop(), new RoundedCorners(20)
                                     )).into(mAvatar);
-                            BmobFile file = new BmobFile();
-                            file.setUrl(facesuser);//此url是上传文件成功之后通过bmobFile.getUrl()方法获取的。
-                            file.delete(new UpdateListener() {
-
-                                @Override
-                                public void done(BmobException e) {
-                                    if (e == null) {
-                                        Log.i("del", "done:删除图片成功 ");
-                                    } else {
-                                        Toast.makeText(getContext(), "数据库图片资源删除失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
                             Log.i("TAG", "done: " + object.size());
                         } catch (Exception e1) {
                             e1.printStackTrace();

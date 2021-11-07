@@ -4,6 +4,11 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/homepage3"
         android:title="首页" />
+    <item
+        android:id="@+id/navigation_chat"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="微聊"
+        />
 
     <item
         android:id="@+id/navigation_admins"
