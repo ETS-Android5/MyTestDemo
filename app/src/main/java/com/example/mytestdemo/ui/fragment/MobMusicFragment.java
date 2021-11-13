@@ -1,5 +1,6 @@
 package com.example.mytestdemo.ui.fragment;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,12 +16,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mytestdemo.R;
 import com.example.mytestdemo.bean.Song;
+import com.example.mytestdemo.ui.activity.PlayMusicDataActivity;
 import com.example.mytestdemo.ui.adapter.AddGetMusic;
 import com.example.mytestdemo.utils.PlayerMusic;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobFile;
@@ -50,10 +53,14 @@ public class MobMusicFragment extends Fragment {
         mMusicGetMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String path = songList.get(position).path;
+//                String path = songList.get(position).path;
+                PlayerMusic.setUrllist(songList);
                 Log.i("TAG", "onItemClick: "+ PlayerMusic.IsPlayer());
                 if (!PlayerMusic.IsPlayer()){
-                    PlayerMusic.player(path);
+//                    PlayerMusic.player(path);
+                    PlayerMusic.ListPlayMusic(position);
+                    Intent intent =new Intent(requireActivity(), PlayMusicDataActivity.class);
+                    requireActivity().startActivity(intent);
                 }
 
 
