@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@drawable/a123"
@@ -25,29 +26,38 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/user_data"
-            android:layout_width="match_parent"
-            android:background="@color/teal_200"
-            android:padding="10dp"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:contentPadding="8dp"
+            android:layout_margin="5dp"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="10dp">
+            <LinearLayout
+                android:id="@+id/user_data"
+                android:layout_width="match_parent"
+                android:background="@color/teal_200"
+                android:padding="10dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/Avatar"
-                android:layout_width="75dp"
-                android:layout_height="75dp" />
-            <TextView
-                android:text="用户名"
-                android:textColor="#FFEB3B"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:id="@+id/user_name_tv"
-                android:layout_marginStart="50dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/Avatar"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp" />
+                <TextView
+                    android:text="用户名"
+                    android:textColor="#FFEB3B"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:id="@+id/user_name_tv"
+                    android:layout_marginStart="50dp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <Button
             android:id="@+id/stop_music"
             android:text="播放"
@@ -62,6 +72,8 @@
             android:id="@+id/alarm_clock"
             android:layout_width="match_parent"
             android:text="闹钟测试"
+            android:visibility="gone"
+            android:enabled="false"
             android:layout_height="wrap_content"/>
 <!--        <TextView-->
 <!--            android:layout_width="match_parent"-->

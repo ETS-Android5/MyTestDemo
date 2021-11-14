@@ -70,7 +70,8 @@ public class PlayerMusic {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    if (position <= urllist.size() - 1) {
+                    Log.i("TAG", "onCompletion: "+(urllist.size() - 1));
+                    if (position < urllist.size() - 1) {
                         ListPlayMusic(++position);
                     }else {
                         Stop();
