@@ -3,11 +3,13 @@ package com.example.mytestdemo.ui.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.example.mytestdemo.MainActivity;
 import com.example.mytestdemo.R;
 
 public class PlayMusicDataActivity extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class PlayMusicDataActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if ("返回".contentEquals(item.getTitle())){
+            startActivity(new Intent(this, MainActivity.class));
             finish();
         }
         return super.onOptionsItemSelected(item);

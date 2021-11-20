@@ -43,7 +43,7 @@ public class FunctionalModuleFragment extends Fragment {
 
         private List<FragmentInfo>  initFragments(){
             List<FragmentInfo> mFragments = new ArrayList<>(4);
-
+            mFragments.add(new FragmentInfo("官方博客",WebQJ315Fragment.class));
             mFragments.add(new FragmentInfo("留言列表",MessageFragment.class));
             mFragments.add(new FragmentInfo("音乐列表",MusicListFragment.class));
             mFragments.add(new FragmentInfo("在线音乐",MobMusicFragment.class));

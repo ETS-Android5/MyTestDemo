@@ -1,7 +1,6 @@
 package com.example.mytestdemo.services;
 
 import android.app.AlarmManager;
-import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -125,7 +124,7 @@ public class MyIntentService extends Service {
  **********     @address     NJQ-PC
  **********     @time 2021/10/22 23:14
  */
-    public Socket connect() {
+    public void connect() {
         try {
             socket = new Socket("39.105.77.85", 5000);
             socket.setSoTimeout(10000);
@@ -145,7 +144,6 @@ public class MyIntentService extends Service {
         } else {
             Log.i("TAG", "connect:二次验证 异常为空！");
         }
-        return socket;
     }
 
     public static boolean IsConnect() {
