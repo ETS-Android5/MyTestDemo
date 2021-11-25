@@ -63,9 +63,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        Intent intent=new Intent(this,MyIntentService.class);
-//        intent.setAction("com.example.mytestdemo.services.MyIntentService");
-//        startService(intent);//*-*-*-*-*-*-*2021/11/04
+        Intent intent=new Intent(this,MyIntentService.class);
+        intent.setAction("com.example.mytestdemo.services.MyIntentService");
+        startService(intent);//*-*-*-*-*-*-*2021/11/04
         Bmob.initialize(LoginActivity.this, "08f5717e435ccb57bd2b266c62b30563");
         setTitle("登录");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

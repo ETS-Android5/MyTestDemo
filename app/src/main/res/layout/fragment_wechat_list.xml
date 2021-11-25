@@ -1,15 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/chatbackground"
-    android:gravity="center"
-    android:layout_height="match_parent">
+    android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:textColor="#05DAC6"
-        android:text="聊天室待建设中……"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:textColor="#05DAC6"-->
+    <!--        android:text="聊天室待建设中……"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textSize="25sp"-->
+    <!--        android:layout_height="wrap_content"/>-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_alp_card_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_700"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:contentPadding="8dp">
+
+        <LinearLayout
+            android:id="@+id/card_alp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_text_line"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/chat_img"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="TODO"
+                tools:ignore="ContentDescription,HardcodedText" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                tools:ignore="UselessLeaf">
+
+                <TextView
+                    android:id="@+id/chat_group_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="大厅聊天通道"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/item_chat_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最新消息"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

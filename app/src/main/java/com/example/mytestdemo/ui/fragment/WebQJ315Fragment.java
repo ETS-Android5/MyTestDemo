@@ -1,5 +1,6 @@
 package com.example.mytestdemo.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -24,6 +25,7 @@ public class WebQJ315Fragment extends Fragment {
     View view;
     private WebView mWebQj315;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class WebQJ315Fragment extends Fragment {
         initView();
         mWebQj315.setWebViewClient(new WebViewClient());
         mWebQj315.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+        mWebQj315.getSettings().setJavaScriptEnabled(true);
         mWebQj315.getSettings().setDomStorageEnabled(true);
         mWebQj315.loadUrl("http://www.lumingyuan6868.xyz/");
         return view;
