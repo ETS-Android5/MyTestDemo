@@ -7,7 +7,7 @@
     android:background="@drawable/qj315"
     android:orientation="vertical"
     android:id="@+id/snackbar_bar"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context="com.qj315.mytestdemo.ui.activity.LoginActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

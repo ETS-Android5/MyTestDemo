@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.PlayMusicDataActivity">
+    tools:context="com.qj315.mytestdemo.ui.activity.PlayMusicDataActivity">
 
 
     <TextView

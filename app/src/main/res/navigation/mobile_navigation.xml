@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.mytestdemo.ui.fragment.HomeFragment"
+        android:name="com.qj315.mytestdemo.ui.fragment.HomeFragment"
         android:label="首页"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/navigation_chat"
-        android:name="com.example.mytestdemo.ui.fragment.WeChatFragment"
+        android:name="com.qj315.mytestdemo.ui.fragment.WeChatFragment"
         android:label="微聊"
         tools:layout="@layout/fragment_wechat_list" />
 
     <fragment
         android:id="@+id/navigation_admins"
-        android:name="com.example.mytestdemo.ui.fragment.FunctionalModuleFragment"
+        android:name="com.qj315.mytestdemo.ui.fragment.FunctionalModuleFragment"
         android:label="功能模块"
         tools:layout="@layout/message_fragment_music_list" />
 
     <fragment
         android:id="@+id/navigation_person_center"
-        android:name="com.example.mytestdemo.ui.fragment.PersonalCenterFragment"
+        android:name="com.qj315.mytestdemo.ui.fragment.PersonalCenterFragment"
         android:label="个人中心"
         tools:layout="@layout/fragment_personal_center" />
 </navigation>

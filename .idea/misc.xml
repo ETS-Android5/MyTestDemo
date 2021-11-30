@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/MyTestDemo/app/src/main/res/drawable/setcire.xml" value="0.23697916666666666" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_add_data.xml" value="0.15489130434782608" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_alarm_clock.xml" value="0.15489130434782608" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_chat_all.xml" value="0.1" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_data_details.xml" value="0.15489130434782608" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/activity_phone_verify.xml" value="0.253125" />
@@ -23,7 +25,9 @@
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_web_q_j315.xml" value="0.35144927536231885" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_wechat_list.xml" value="0.2713541666666667" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/item_data.xml" value="0.25" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/message2.xml" value="0.22083333333333333" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/message_fragment_music_list.xml" value="0.19635416666666666" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/messagel.xml" value="0.22083333333333333" />
         <entry key="..\:/MyTestDemo/app/src/main/res/menu/nav_menu.xml" value="0.19635416666666666" />
         <entry key="..\:/MyTestDemo/app/src/main/res/menu/setting.xml" value="0.22037037037037038" />
       </map>
