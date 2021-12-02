@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.qj315.mytestdemo.ui.fragment.WebQJ315Fragment">
+    tools:context="com.qj315.QiJiu315.ui.fragment.WebQJ315Fragment">
 
    <WebView
        android:id="@+id/web_qj315"

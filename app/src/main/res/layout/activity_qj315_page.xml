@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/qj315"
-    tools:context="com.qj315.mytestdemo.ui.activity.Qj315Page">
+    tools:context="com.qj315.QiJiu315.ui.activity.Qj315Page">
 
 </LinearLayout>

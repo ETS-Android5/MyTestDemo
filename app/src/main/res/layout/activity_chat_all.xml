@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="com.qj315.mytestdemo.ui.activity.ChatAllActivity">
+    tools:context="com.qj315.QiJiu315.ui.activity.ChatAllActivity">
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
