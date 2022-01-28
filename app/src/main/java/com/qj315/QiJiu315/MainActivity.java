@@ -220,15 +220,15 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("username", name);
                 startActivity(intent);
                 break;
-            case R.id.update_msg:
-                if (name.equals("QJ315")) {
-                    UpdateTest updateTest = new UpdateTest(MainActivity.this);
-                    updateTest.create();
-                    updateTest.show();
-                } else {
-                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case R.id.update_msg:
+//                if (name.equals("QJ315")) {
+//                    UpdateTest updateTest = new UpdateTest(MainActivity.this);
+//                    updateTest.create();
+//                    updateTest.show();
+//                } else {
+//                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
             case R.id.update_dialog:
                 querySingleData();
                 break;
