@@ -3,4 +3,9 @@
     <string name="bmob_test">Bmob_test!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="setting">设置</string>
+    <string name="inspect">检查更新</string>
+    <string name="loginagain">重新登录</string>
+    <string name="updateG">更新公告</string>
+    <string name="updateV">更新数据库同步软件版本</string>
 </resources>

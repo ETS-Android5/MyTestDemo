@@ -232,26 +232,26 @@ public class MainActivity extends AppCompatActivity {
             case R.id.update_dialog:
                 querySingleData();
                 break;
-            case R.id.logon:
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    if (PlayerMusic.IsPlayed()) {
-                        PlayerMusic.Reset();
-                    }
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    BmobUser.logOut();
-                    finish();
-                }, 1000);
-                break;
-            case R.id.update_v:
-                if (name.equals("QJ315")) {
-                    DialogUpdateV updateV = new DialogUpdateV(MainActivity.this);
-                    updateV.setCancelable(true);
-                    updateV.show();
-                } else {
-                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case R.id.logon:
+//                Handler handler = new Handler();
+//                handler.postDelayed(() -> {
+//                    if (PlayerMusic.IsPlayed()) {
+//                        PlayerMusic.Reset();
+//                    }
+//                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+//                    BmobUser.logOut();
+//                    finish();
+//                }, 1000);
+//                break;
+//            case R.id.update_v:
+//                if (name.equals("QJ315")) {
+//                    DialogUpdateV updateV = new DialogUpdateV(MainActivity.this);
+//                    updateV.setCancelable(true);
+//                    updateV.show();
+//                } else {
+//                    Toast.makeText(this, "系统默认管理员，您不是有效管理！", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -26,10 +26,15 @@
         tools:ignore="AllowBackup,UnusedAttribute"
         tools:replace="android:theme">
         <activity
-            android:name="com.qj315.QiJiu315.ui.activity.ChatAllActivity"
+            android:name="com.qj315.QiJiu315.ui.activity.SettingActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:exported="false" />
+        <activity
+            android:name="com.qj315.QiJiu315.ui.activity.ChatAllActivity"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.qj315.QiJiu315.ui.activity.PlayMusicDataActivity"
             android:exported="false"
@@ -37,9 +42,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.qj315.QiJiu315.ui.activity.AlarmClockActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <receiver
             android:name="com.qj315.QiJiu315.receiver.AlarmClockReceiver"

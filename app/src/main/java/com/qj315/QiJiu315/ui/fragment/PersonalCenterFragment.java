@@ -41,6 +41,7 @@ import com.example.mytestdemo.R;
 import com.qj315.QiJiu315.bean.User;
 import com.qj315.QiJiu315.bean.update;
 import com.qj315.QiJiu315.ui.activity.AlarmClockActivity;
+import com.qj315.QiJiu315.ui.activity.SettingActivity;
 import com.qj315.QiJiu315.ui.activity.UpdatePasswordActivity;
 import com.qj315.QiJiu315.ui.dialog.SetProgressBar;
 import com.qj315.QiJiu315.utils.PlayerMusic;
@@ -75,7 +76,7 @@ public class PersonalCenterFragment extends Fragment {
     private ProgressBar mProgressBar;
     private ImageView mAvatar;
     private TextView mUserNameTv;
-    private Button stopmusic, updateok, alarmclock;
+    private Button stopmusic, updateok, alarmclock,setting;
     private MediaPlayer mediaPlayer;
     private String s;
     private String objectId;
@@ -127,6 +128,12 @@ public class PersonalCenterFragment extends Fragment {
                 stopmusic.setText("暂停");
             }
         });
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SettingActivity.class));
+            }
+        });
 
         updateok.setOnClickListener(v -> startActivity(new Intent(requireActivity(), UpdatePasswordActivity.class)));
 
@@ -161,6 +168,7 @@ public class PersonalCenterFragment extends Fragment {
         mAvatar = view.findViewById(R.id.Avatar);
         mUserNameTv = view.findViewById(R.id.user_name_tv);
         stopmusic = view.findViewById(R.id.stop_music);
+        setting=view.findViewById(R.id.system_Setting);
         updateok = view.findViewById(R.id.update_password);
         alarmclock = view.findViewById(R.id.alarm_clock);
 //        feedback=view.findViewById(R.id.feedback_list);

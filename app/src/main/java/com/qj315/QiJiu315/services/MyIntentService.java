@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.qj315.QiJiu315.mysql.MySQL_Utils;
 import com.qj315.QiJiu315.receiver.AlarmClockReceiver;
 
 import java.io.IOException;
@@ -48,6 +49,8 @@ public class MyIntentService extends Service {
                 @Override
                 public void run() {
                     connect();
+                    MySQL_Utils mySQLUtils=new MySQL_Utils();
+                    mySQLUtils.ConnectSQL();
                 }
             }).start();
         }
