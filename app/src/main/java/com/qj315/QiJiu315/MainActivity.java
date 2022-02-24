@@ -133,37 +133,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        initView();
-////        Bmob.resetDomain("https://files.lumingyuan6868.xyz");
-//        Bmob.initialize(MainActivity.this, "08f5717e435ccb57bd2b266c62b30563");
-//        setView1();
-//      Intent userdata =getIntent();
-//         name = userdata.getStringExtra("username");
-//         querySingleData();
-//
-//        alllist.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setView3();
-//                setTitle("管理员列表");
-//            }
-//        });
-//        home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setView1();
-//                setTitle("主页");
-//            }
-//        });
-//        personal_center.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setView4();
-//                setTitle("个人中心");
-//            }
-//        });
-
     }
 
     @Override
