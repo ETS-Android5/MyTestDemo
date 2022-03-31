@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -66,17 +67,19 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog mDownloadDialog;
     private String mSavePath;
     private ProgressBar mProgressBar;
+    private TextView textViewProgress;
     private int code;
     private int mProgress;
     @SuppressLint("HandlerLeak")
     private final Handler mUpdateProgressHandler = new Handler() {
-        @SuppressLint("HandlerLeak")
+        @SuppressLint({"HandlerLeak", "SetTextI18n"})
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
                     // 设置进度条
                     mProgressBar.setProgress(mProgress);
+                    textViewProgress.setText(mProgress+"%");
                     break;
                 case 2:
                     // 隐藏当前下载对话框
@@ -286,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("下载中");
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.dialog_progress, null);
         mProgressBar = (ProgressBar) view.findViewById(R.id.id_progress);
+        textViewProgress=view.findViewById(R.id.tv_progress);
         builder.setView(view);
 
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
