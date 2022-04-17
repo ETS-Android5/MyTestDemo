@@ -29,7 +29,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="110dp"
             android:layout_margin="5dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
@@ -64,6 +64,8 @@
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
                         android:text="玖分：0"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
