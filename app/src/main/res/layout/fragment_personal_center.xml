@@ -47,17 +47,28 @@
                     android:id="@+id/Avatar"
                     android:layout_width="75dp"
                     android:layout_height="75dp" />
-
-                <TextView
-                    android:id="@+id/user_name_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_gravity="center"
                     android:layout_marginStart="50dp"
-                    android:text="用户名"
-                    android:textColor="#FFEB3B"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/user_name_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="用户名"
+                        android:textColor="#FFEB3B"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="玖分：0"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -77,20 +88,20 @@
                     android:id="@+id/stop_music"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="播放" />
+                    android:text="@string/musictest" />
 
                 <Button
                     android:id="@+id/update_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="修改密码" />
+                    android:text="@string/passwordtest" />
 
                 <Button
                     android:id="@+id/alarm_clock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
-                    android:text="闹钟测试"
+                    android:text="@string/clocktest"
                     android:visibility="gone" />
 
                 <Button

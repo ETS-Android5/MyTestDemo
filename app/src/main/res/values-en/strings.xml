@@ -8,4 +8,7 @@
     <string name="loginagain">LoginAgain</string>
     <string name="updateG">UpdateG</string>
     <string name="updateV">UpdateVersion</string>
+    <string name="musictest" >MusicTest</string>
+    <string name="passwordtest" >UpdatePassWord</string>
+    <string name="clocktest" >ClockTest</string>
 </resources>

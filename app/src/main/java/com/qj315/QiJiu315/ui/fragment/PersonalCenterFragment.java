@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -90,7 +91,7 @@ public class PersonalCenterFragment extends Fragment {
     public PersonalCenterFragment() {
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal_center, container, false);
@@ -99,6 +100,7 @@ public class PersonalCenterFragment extends Fragment {
 //        UserList();
         Intent username = requireActivity().getIntent();
         View users = view.findViewById(R.id.user_data);
+        users.setBackground(getResources().getDrawable(R.drawable.user_background));
         users.getBackground().setAlpha(148);
         mUserNameTv.setText("用户名:" + username.getStringExtra("username"));
 
