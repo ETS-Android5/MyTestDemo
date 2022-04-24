@@ -8,19 +8,6 @@
     android:orientation="vertical"
     tools:ignore="ScrollViewCount">
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textSize="30sp"-->
-    <!--        android:textColor="#03A9F4"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="待建设中……"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +47,7 @@
                         android:layout_gravity="center"
                         android:text="用户名"
                         android:textColor="#FFEB3B"
-                        android:textSize="20sp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,18 +75,21 @@
 
                 <Button
                     android:id="@+id/stop_music"
+                    android:textAllCaps="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/musictest" />
 
                 <Button
                     android:id="@+id/update_password"
+                    android:textAllCaps="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/passwordtest" />
 
                 <Button
                     android:id="@+id/alarm_clock"
+                    android:textAllCaps="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"

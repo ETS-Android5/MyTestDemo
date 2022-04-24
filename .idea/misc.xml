@@ -25,9 +25,13 @@
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_message.xml" value="0.234375" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_music_list.xml" value="0.26510416666666664" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_personal_center.xml" value="0.22" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_videos.xml" value="0.22083333333333333" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_web_q_j315.xml" value="0.35144927536231885" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/fragment_wechat_list.xml" value="0.2713541666666667" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/item_data.xml" value="0.25" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/item_people_message.xml" value="0.36614583333333334" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/item_self_messagel.xml" value="0.36614583333333334" />
+        <entry key="..\:/MyTestDemo/app/src/main/res/layout/item_video.xml" value="0.36614583333333334" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/message2.xml" value="0.22083333333333333" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/message_fragment_music_list.xml" value="0.19635416666666666" />
         <entry key="..\:/MyTestDemo/app/src/main/res/layout/messagel.xml" value="0.22083333333333333" />

@@ -111,7 +111,7 @@ public class MyIntentService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onTrimMemory(int level) {
-        onCreate();
+//        onCreate();
 
         //保持运行的方法
     }

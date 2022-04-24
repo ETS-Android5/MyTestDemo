@@ -174,7 +174,7 @@ class MyAdapter extends BaseAdapter {
         return i;
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "InflateParams"})
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
