@@ -2,7 +2,6 @@ package com.qj315.QiJiu315.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,14 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.MediaController;
 import android.widget.Toast;
-import android.widget.VideoView;
-
 import com.example.mytestdemo.R;
-import com.qj315.QiJiu315.bean.Song;
 import com.qj315.QiJiu315.bean.VideoList;
-import com.qj315.QiJiu315.ui.adapter.AddGetMusic;
 
 import java.util.List;
 
@@ -63,6 +57,7 @@ public class VideosFragment extends Fragment {
          view=inflater.inflate(R.layout.fragment_videos, container, false);
          initView();
         Log.i("TAG", "onCreateView: ");
+
         try {
          updateDate();
         }catch (Exception e){
@@ -72,6 +67,7 @@ public class VideosFragment extends Fragment {
 
     }
 
+
     public void initView() {
         mJieVideos=view.findViewById(R.id.jie_videos);
     }
@@ -79,7 +75,7 @@ public class VideosFragment extends Fragment {
 
     public void updateDate() {
         BmobQuery<VideoList> query = new BmobQuery<>();
-        query.order("-createdAt");
+        query.order("createdAt");
         query.findObjects(new FindListener<VideoList>() {
             @Override
             public void done(List<VideoList> list, BmobException e) {
@@ -125,10 +121,11 @@ class VideoAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView=LayoutInflater.from(context).inflate(R.layout.item_video,null);
-        JzvdStd videoViewdata=convertView.findViewById(R.id.item_video);
-        VideoList videoList=videoLists.get(position);
-        Log.i("TAG", "getView: "+videoList.getUrl());
-        videoViewdata.setUp(videoList.getUrl(), "第"+(position+1)+"视频");
+        JzvdStd videoViewdata=(JzvdStd) convertView.findViewById(R.id.item_video);//定义饺子视频控件
+        VideoList videoList=videoLists.get(position);//从bmob获取视频链接
+//        Log.i("TAG", "getView: "+videoList.getUrls());//打印视频链接
+        videoViewdata.setUp(videoList.getUrls(), videoList.getName());//参数:视频URL,以及视频标题title
+        videoViewdata.posterImageView.setImageResource(R.drawable.qj315loading);//设置视频播放封面
 
 
         return convertView;

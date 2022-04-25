@@ -56,6 +56,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
+import cn.jzvd.Jzvd;
 
 public class MainActivity extends AppCompatActivity {
     private final String mVersion_name = "app-release.apk";
@@ -157,14 +158,24 @@ public class MainActivity extends AppCompatActivity {
                 am.restartPackage(getPackageName());
             }
         }
+        if (Jzvd.backPress()){
+            return;
+        }
+        super.onBackPressed();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
+    }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.setting, menu);
         return true;
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -380,6 +391,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 
     /**
      * 接收消息
